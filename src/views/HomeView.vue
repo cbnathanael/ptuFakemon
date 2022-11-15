@@ -20,7 +20,6 @@
 import { reactive, inject } from 'vue';
 import { useStore } from 'vuex';
 const store = useStore();
-const appRealm = inject("appRealm");
 const loginInfo = reactive({
   username: "",
   password: ""
@@ -32,16 +31,6 @@ async function login() {
   }).catch(err=>{
     console.log(err);
   })
-  // loginEmailPassword().then(()=>{
-  //   const mongo = appRealm.currentUser?.mongoClient("Cluster0");
-  //   const collection = mongo?.db("fakemon").collection("pokemon");
-  //   collection.findOne({name: "Bulbasaur"}).then((el)=>{
-  //     console.log(el);
-  //   })
-    
-  // })
 }
-//const user = await loginEmailPassword("joe.jasper@example.com", "passw0rd");
-
 
 </script>

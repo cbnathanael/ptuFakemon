@@ -1,7 +1,5 @@
-import { inject } from "vue";
 import * as  Realm from 'realm-web';
-const appRealm:any = inject("appRealm");
-
+import appRealm from '@/services/realm'; 
 const authentication = {
     namespaced: true,
 
@@ -25,7 +23,9 @@ const authentication = {
         },
     },
     getters: {
-        
+        getUserId(state:any) {
+            return state.user.id;
+        }
     },
     mutations: {
         updateAuthentication(state: any, user: any) {
