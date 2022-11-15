@@ -1,7 +1,5 @@
 <template>
-  <div class="home">
-    <h1>Hi</h1>
-
+  <section>
     <form>
       <label>
         Username
@@ -13,16 +11,16 @@
       </label>
       <button type="button" @click="login">Log In</button>
     </form>
-</div>
+  </section>
 </template>
 
 <script setup lang="ts">
-import { reactive, inject } from 'vue';
+import { reactive } from 'vue';
 import { useStore } from 'vuex';
 const store = useStore();
 const loginInfo = reactive({
-  username: "",
-  password: ""
+  username: process.env?.VUE_APP_DEFAULT_USER,
+  password: process.env?.VUE_APP_DEFAULT_PW
 });
 
 async function login() {

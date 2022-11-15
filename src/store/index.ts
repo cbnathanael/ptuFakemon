@@ -1,5 +1,7 @@
 import { createStore } from 'vuex'
-import authentication from './modules/auth'
+import authentication from './modules/authentication'
+import pokemon from './modules/pokemon'
+
 export default createStore({
   state: {
   },
@@ -10,6 +12,7 @@ export default createStore({
   actions: {
   },
   modules: {
-    authentication
+    authentication,
+    pokemon
   }
 })

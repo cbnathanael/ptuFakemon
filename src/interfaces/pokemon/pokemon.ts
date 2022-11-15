@@ -1,6 +1,6 @@
 import { DieType } from "../core/dieType"
 
-export interface Pokemon {
+export default interface Pokemon {
     id: number,
     name: string,
     stats: {

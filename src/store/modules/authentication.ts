@@ -21,10 +21,26 @@ const authentication = {
                     return err;
                 }
         },
+        confirmUser({commit}:any) {
+            const user = appRealm.currentUser;
+            let loggedIn = false;
+            if(user) {
+                commit('updateAuthentication', user);
+                loggedIn = user.isLoggedIn;
+            }
+            return loggedIn;
+        }
     },
     getters: {
         getUserId(state:any) {
             return state.user.id;
+        },
+        getUserStatus(state:any) {
+            if(state.user == null) {
+                return false;
+            } else {
+                return state.user.isLoggedIn;
+            }
         }
     },
     mutations: {
