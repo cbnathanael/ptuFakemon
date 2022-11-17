@@ -13,6 +13,6 @@ export default createStore({
   },
   modules: {
     authentication,
-    pokemon
+    pokemon,
   }
 })

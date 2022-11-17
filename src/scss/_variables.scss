@@ -1,0 +1,91 @@
+@use "sass:color";
+
+$body-font-color: #0d0d0d;
+
+$gray: #DBDBDB;
+$gray_light: #F3EFEE;
+$gray_med: #5B5B5D;
+$gray_dark: #333333;
+$gray_dark_accent: #262626;
+$off_white: #F7FFFF;
+
+//$red_light: #FFEBED;    //354/100/96
+
+$red: #E3313D;      //356/76/54
+$red_light: color.adjust($red, $saturation: 20, $lightness: 35);
+$red_med: color.adjust($red, $saturation: -20, $lightness: -20);
+
+$blue: #3488FC;
+$blue_med: color.adjust($blue, $saturation: -20, $lightness: -20);
+$blue_light: color.adjust($blue, $saturation: 20, $lightness: 35);
+
+$orange: #F27F00;
+$orange_med: color.adjust($orange, $saturation: -20, $lightness: -20);
+$orange_light: color.adjust($orange, $saturation: 20, $lightness: 35);
+
+$green: #34AD08;
+$green_med: color.adjust($green, $saturation: -20, $lightness: -20);
+$green_light: color.adjust($green, $saturation: 20, $lightness: 35);
+
+$purple: #5C4AEA;
+$purple_med: color.adjust($purple, $saturation: -20, $lightness: -20);
+$purple_light: color.adjust($purple, $saturation: 20, $lightness: 35);
+
+$yellow: #FEEA00;
+$yellow_med: color.adjust($yellow, $saturation: -20, $lightness: -20);
+$yellow_light: color.adjust($yellow, $saturation: 20, $lightness: 35);
+
+
+$type_normal: #919AA2;
+$type_normal_dark: #4D5052;
+
+$type_bug: #91C12F;
+$type_bug_dark: #4D553F;
+
+$type_electric: #F4D23C;
+$type_electric_dark: #5D5942;
+
+$type_fighting: #CE416B;
+$type_fighting_dark: #58414A;
+
+$type_ghost: #5269AD;
+$type_ghost_dark: #424952;
+
+$type_psychic: #FA7179;
+$type_psychic_dark: #5D494A;
+
+$type_flying: #8FA9DE;
+$type_flying_dark: #4D525A;
+
+$type_steel: #5A8EA2;
+$type_steel_dark: #454D52;
+
+$type_ice: #73CEC0;
+$type_ice_dark: #475858;
+
+$type_poison: #AA6BC8;
+$type_poison_dark: #524958;
+
+$type_fire: #FF9D55;
+$type_fire_dark: #605045;
+
+$type_dragon: #0B6DC3;
+$type_dragon_dark: #374958;
+
+$type_ground: #D97845;
+$type_ground_dark: #5A4A42;
+
+$type_water: #5090D6;
+$type_water_dark: #424E5A;
+
+$type_dark: #5A5465;
+$type_dark_dark: #45454A;
+
+$type_rock: #C5B78C;
+$type_rock_dark: #585550;
+
+$type_grass: #63BC5A;
+$type_grass_dark: #455647;
+
+$type_fairy: #EC8FE6;
+$type_fairy_dark: #5D4E5D;

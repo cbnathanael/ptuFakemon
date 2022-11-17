@@ -1,4 +1,4 @@
-import { DieType } from "./interfaces/core/dieType";
+import DieType from "./interfaces/core/dieType";
 
 export default {
   diceFormat(dice: DieType) {
