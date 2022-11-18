@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Move from "@/interfaces/pokemon/move";
 import { reactive, onBeforeMount } from "vue";
 import { useStore } from "vuex";
 interface Props {
@@ -8,8 +9,10 @@ interface Props {
 const store = useStore();
 // eslint-disable-next-line no-undef, @typescript-eslint/no-unused-vars
 const props = defineProps<Props>();
-
-const moveData = reactive({
+interface MoveData {
+    move?: Move
+}
+const moveData:MoveData = reactive({
     move: undefined
 })
 onBeforeMount(() => {
