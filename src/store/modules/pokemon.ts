@@ -22,7 +22,8 @@ const pokemon = {
                 
                 const names: string[] = [];
                 pokemon?.forEach(p =>{
-                    names.push(p.name);
+                    if(p.abilities)
+                        names.push(p.name);
                 });
                 commit('setPokemonNames', names)
                 return true;

@@ -1,3 +1,17 @@
 @mixin transition-quick {
-    transition: all 0.3s cubic-bezier(.25,.1,.25,1);
+  transition: all 0.3s cubic-bezier(.25, .1, .25, 1);
+}
+
+@mixin floating-tip($padding, $width) {
+  background: rgba($gray_dark, 0.9);
+  font-size: 0.75rem;
+  color: white;
+  box-shadow: 0px 4px 16px rgba($gray_dark_accent, 0.2), 0px 8px 32px rgba($gray_dark_accent, 0.1);
+  width: $width;
+
+  .floating-tip-content {
+    background: $gray_dark;
+    clip-path: polygon(0px 100%, $padding 0%, 100% 0, calc($width - $padding) 100%);
+    padding: 0.5rem $padding;
   }
+}

@@ -29,7 +29,7 @@ const position = computed(() => {
 
     // const scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
     // const scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
-    
+
     // const clientTop = docEl.clientTop || body.clientTop || 0;
     // const clientLeft = docEl.clientLeft || body.clientLeft || 0;
     // console.log(box.top + "/" + scrollTop + "/" + clientTop);
@@ -41,38 +41,41 @@ const position = computed(() => {
 </script>
 
 <template>
-    <aside v-if="ability != undefined" id="AbilityDetails" :style="{top: position.top+'px', left: position.left+'px'}">
-        <h1>{{ ability.name }}</h1>
-        <dl>
-            <dt>Effect</dt>
-            <dd>{{ ability.effect }}</dd>
-            <dt v-if="ability.frequency != ''">Frequency</dt>
-            <dd v-if="ability.frequency != ''">{{ ability.frequency }}</dd>
-            <dt v-if="ability.target != ''">Target</dt>
-            <dd v-if="ability.target != ''">{{ ability.target }}</dd>
-            <dt v-if="ability.trigger != ''">Trigger</dt>
-            <dd v-if="ability.trigger != ''">{{ ability.trigger }}</dd>
-            <dt v-if="ability.keywords != ''">Keywords</dt>
-            <dd v-if="ability.keywords != ''">{{ ability.keywords }}</dd>
+    <aside v-if="ability != undefined" id="AbilityDetails" class="floating-tip" :style="{ top: position.top + 'px', left: position.left + 'px' }">
+        <div class="floating-tip-content">
+            <h1>{{ ability.name }}</h1>
+            <dl>
+                <dt>Effect</dt>
+                <dd>{{ ability.effect }}</dd>
+                <dt v-if="ability.frequency != ''">Frequency</dt>&nbsp;
+                <dd v-if="ability.frequency != ''">{{ ability.frequency }}</dd>
+                <dt v-if="ability.target != ''">Target</dt>&nbsp;
+                <dd v-if="ability.target != ''">{{ ability.target }}</dd>
+                <dt v-if="ability.trigger != ''">Trigger</dt>&nbsp;
+                <dd v-if="ability.trigger != ''">{{ ability.trigger }}</dd>
+                <dt v-if="ability.keywords != ''">Keywords</dt>&nbsp;
+                <dd v-if="ability.keywords != ''">{{ ability.keywords }}</dd>
 
-        </dl>
+            </dl>
+        </div>
     </aside>
 </template>
 
 <style lang="scss">
 #AbilityDetails {
     position: fixed;
-    background: #ccc;
-    font-size: 12px;
-    padding: 8px;
-    width: 200px;
+    
+    @include floating-tip(32px, 300px);
+
     h1 {
-        font-size: 14px;
-        line-height: 1.6;
-        margin: 0;
+        font-size: 0.875rem;
+        font-weight: 700;
     }
+
     dl {
-        dt, dd {
+
+        dt,
+        dd {
             display: inline-block !important;
             width: auto !important;
         }

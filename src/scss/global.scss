@@ -1,7 +1,7 @@
 @import "_reset.css";
 @import "mixins";
 @import url('https://fonts.googleapis.com/css2?family=Encode+Sans:wght@400;700&display=swap');
-
+@import 'components/_vselect.css';
 html, body {
     font-family: 'Encode Sans', sans-serif;
     font-size: 16px;

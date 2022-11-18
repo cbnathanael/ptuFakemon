@@ -166,7 +166,6 @@ div.type-display-block {
         text-transform: uppercase;
         line-height: 24px;
         margin-left: 20px;
-        -webkit-clip-path: polygon(0 0, 100% 0%, calc(100% - 32px) 100%, 0% 100%);
         clip-path: polygon(0px 24px, 12px 0%, 100% 0, 100% 100%);
         padding: 0 6px 0 12px;
         font-weight: 700;
