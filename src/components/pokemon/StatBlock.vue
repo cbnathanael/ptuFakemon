@@ -27,13 +27,13 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
 
 <template>
   <article id="PokemonStats">
-    <header>
+    <!-- <header>
       <h1>{{ pokemon.name }}</h1>
-    </header>
+    </header> -->
     <div class="column column-left">
       <section id="PokemonBaseStats">
         <h2>Base Stats</h2>
-        <dl>
+        <dl class="data">
           <dt>HP</dt>
           <dd>{{ pokemon.stats.hp }}</dd>
           <dt>Attack</dt>
@@ -50,19 +50,19 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
       </section>
       <section id="PokemonBasicInformation">
         <h2>Basic Information</h2>
-        <dl>
+        <dl class="data">
           <dt>Type</dt>
-          <dd><span v-for="(type, idx) in pokemon.types" :key="idx" class="comma-list-item"><TypeDisplay :type-name="type.toLowerCase()"></TypeDisplay></span></dd>
-          <div v-for="(ability, idx) in pokemon.abilities.basic" :key="idx">
+          <dd><span v-for="(type, idx) in pokemon.types" :key="idx" ><TypeDisplay :type-name="type.toLowerCase()" v-if="type.toLowerCase() != 'none'"></TypeDisplay></span></dd>
+          <template v-for="(ability, idx) in pokemon.abilities.basic" :key="idx">
             <dt>Basic Ability {{ idx + 1 }}</dt>
             <dd><span @mouseover="abilityDisplay(ability, true, $event)"
                 @mouseleave="abilityDisplay(ability, false, $event)" class="hoverable">{{ ability }}</span></dd>
-          </div>
-          <div v-for="(ability, idx) in pokemon.abilities.advanced" :key="idx">
+          </template>
+          <template v-for="(ability, idx) in pokemon.abilities.advanced" :key="idx">
             <dt>Advanced Ability {{ idx + 1 }}</dt>
-            <span @mouseover="abilityDisplay(ability, true, $event)"
-              @mouseleave="abilityDisplay(ability, false, $event)" class="hoverable">{{ ability }}</span>
-          </div>
+            <dd><span @mouseover="abilityDisplay(ability, true, $event)"
+              @mouseleave="abilityDisplay(ability, false, $event)" class="hoverable">{{ ability }}</span></dd>
+          </template>
           <dt>High Ability</dt>
           <dd><span @mouseover="abilityDisplay(pokemon.abilities.high[0], true, $event)"
               @mouseleave="abilityDisplay(pokemon.abilities.high[0], false, $event)"
@@ -71,15 +71,15 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
       </section>
       <section id="PokemonEvolution">
         <h2>Evolution</h2>
-        <ol class="evolutions">
+        <ol class="evolutions data">
           <li v-for="(evo, idx) in pokemon.evolutions" :key="idx">
-            {{ evo.level }} &ndash; {{ evo.name }} <span v-if="evo.minimum">Minimum {{ evo.minimum }}</span>
+            <span>{{ evo.level }}</span><span>{{ evo.name }} <small v-if="evo.minimum">Minimum {{ evo.minimum }}</small></span>
           </li>
         </ol>
       </section>
       <section id="PokemonSize">
         <h2>Size Information</h2>
-        <dl>
+        <dl class="data">
           <dt>Height</dt>
           <dd>{{ pokemon.size.height.inches }}&rdquo; / {{ pokemon.size.height.metric }}m ({{ pokemon.size.height.scale }})
           </dd>
@@ -91,7 +91,7 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
       </section>
       <section>
         <h2>Breeding Information</h2>
-        <dl>
+        <dl class="data">
           <dt>Gender Ratio</dt>
           <dd>{{ pokemon.breeding.ratio.male }}% M / {{ pokemon.breeding.ratio.female }}% F</dd>
           <dt>Egg Group</dt>
@@ -108,7 +108,7 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
     <div class="column column-right">
       <section>
         <h2>Capability List</h2>
-        <ul>
+        <ul class="data-list">
           <li v-if="pokemon.movement.overland > 0">Overland {{ pokemon.movement.overland }}</li>
           <li v-if="pokemon.movement.sky > 0">Sky {{ pokemon.movement.sky }}</li>
           <li v-if="pokemon.movement.swim > 0">Swim {{ pokemon.movement.swim }}</li>
@@ -125,7 +125,7 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
       </section>
       <section>
         <h2>Skill List</h2>
-        <ul>
+        <ul class="data-list">
           <li v-if="!(pokemon.skills.acrobatics.dice == 2 && pokemon.skills.acrobatics.modifier == 0)">Acrobatics
             {{ formatting.diceFormat(pokemon.skills.acrobatics) }} </li>
           <li v-if="!(pokemon.skills.athletics.dice == 2 && pokemon.skills.athletics.modifier == 0)">Athletics
@@ -154,9 +154,12 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
       </section>
       <section>
         <h2>Move List</h2>
-        <ol class="move-list">
+        <ol class="moves-list data">
+          <li>
+          <span>Level</span><span>Move</span>
+          </li>
           <li v-for="(move, idx) in pokemon.moves" :key="idx">
-            {{ move.level }} {{ move.name }}
+            <span>{{ move.level }}</span><span>{{ move.name }}</span>
             <!-- &ndash; {{move.type}} -->
           </li>
         </ol>
@@ -187,38 +190,88 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
 <style lang="scss">
 #PokemonStats {
   margin: 1rem auto;
-  max-width: 50rem;
+  max-width: 60rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-column-gap: 2rem;
   position: relative;
 
   header {
     grid-column: 1 / span 2;
   }
 
-  dl {
-
-    dt,
-    dd {
-      display: inline-block;
-      width: 50%;
-      margin: 0;
+  h2 {
+    font-size: 1.5rem;
+    padding: 0.25rem 0.5rem;
+    position: relative;
+    border-bottom: 0.25rem solid $red;
+    clip-path: polygon(0px 100%, 0px 0%, 100% 0, 80% 100%);
+    // &::after {
+    //   content: '';
+    //   position: absolute;
+    //   bottom: 0;
+    //   left: 0;
+    //   width: 80%;
+    //   height: 0.25rem;
+    //   background-color: $red;
+    // }
+  }
+  dl.data {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 0.125rem;
+    background-color: $gray;
+    
+    dt, dd {
+      padding: 0.25rem 0.5rem;
     }
-
     dt {
       font-weight: bold;
-
-      &:after {
-        content: ":";
-      }
+      background: $gray_light;
     }
-
-    dd:after {
-      content: "\a";
-      white-space: pre;
+    dd {
+      background: white;
     }
   }
-
+  ol.data {
+    background: $gray;
+    li {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      & > span {
+        padding: 0.25rem 0.5rem;
+      &:first-child {
+        background: $gray_light;
+        font-weight: 700;
+      }
+      &:last-child {
+        background: white;
+      }
+    }
+      &+ li {
+        margin-top: 0.125rem;
+      }
+    }
+    &.moves-list {
+      li {
+        grid-template-columns: 4rem 1fr;
+        
+      }
+    }
+  }
+  ul.data-list {
+    background: white;
+    padding: 0.25rem 0.5rem;
+    li {
+      display: inline;
+      &::after {
+        content: ', ';
+      }
+      &:last-child::after {
+        content: '';
+      }
+    }
+  }
   ol.evolutions,
   ol.move-list {
     list-style: none;
