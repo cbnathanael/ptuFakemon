@@ -12,6 +12,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/login',
     name: 'login',
     component: () => import(/* webpackChunkName: "Login" */ '../views/LoginView.vue')
+  },
+  {
+    path: '/Style',
+    name: 'Style',
+    component: () => import(/* webpackChunkName: "Style" */ '../views/StyleView.vue')
   }
 ]
 
@@ -24,7 +29,7 @@ export default router
 
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/login'];
+  const publicPages = ['/login', '/style'];
   const authRequired = !publicPages.includes(to.path);
   
   store.dispatch("authentication/confirmUser")
