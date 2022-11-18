@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "ghDeploy": "git commit -m 'pushing dist subtree' && git subtree push --prefix dist origin gh-pages"
   },
   "dependencies": {
     "@apollo/client": "^3.7.1",

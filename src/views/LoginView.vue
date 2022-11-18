@@ -21,8 +21,8 @@ import { useStore } from 'vuex';
 const store = useStore();
 const router = useRouter();
 const loginInfo = reactive({
-  username: process.env?.VUE_APP_DEFAULT_USER,
-  password: process.env?.VUE_APP_DEFAULT_PW
+  username: '',
+  password: ''
 });
 
 async function login() {
