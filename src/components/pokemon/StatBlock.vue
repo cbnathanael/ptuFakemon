@@ -4,6 +4,7 @@ import { ref, reactive, computed } from "vue";
 import formatting from '@/formatting';
 import TypeDisplay from './TypeDisplayBlock.vue';
 import AbilityDetail from './AbilityDetail.vue';
+import MoveDisplay from "./MoveDisplay.vue";
 interface Props {
   pokemon: Pokemon;
 }
@@ -159,7 +160,7 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
           <span>Level</span><span>Move</span>
           </li>
           <li v-for="(move, idx) in pokemon.moves" :key="idx">
-            <span>{{ move.level }}</span><span>{{ move.name }}</span>
+            <span>{{ move.level }}</span><MoveDisplay :moveName="move.name" :displayType="'block'"></MoveDisplay>
             <!-- &ndash; {{move.type}} -->
           </li>
         </ol>

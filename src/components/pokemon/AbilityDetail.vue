@@ -24,17 +24,8 @@ const ability = computed(() => {
 });
 const position = computed(() => {
     const box = props.target.getBoundingClientRect();
-    // const body = document.body;
-    // const docEl = document.documentElement;
-
-    // const scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
-    // const scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
-
-    // const clientTop = docEl.clientTop || body.clientTop || 0;
-    // const clientLeft = docEl.clientLeft || body.clientLeft || 0;
-    // console.log(box.top + "/" + scrollTop + "/" + clientTop);
-    let top = box.top; //? (box.top + scrollTop - clientTop) : 0;
-    let left = box.left + box.width;// ? (box.left + box.width + scrollLeft - clientLeft) : 0;
+    let top = box.top;
+    let left = box.left + box.width;
 
     return { top: top, left: left };
 })
