@@ -170,6 +170,7 @@ onBeforeMount(() => {
     .name {
         grid-column-start: 1;
         grid-row: 1;
+        
     }
 
     &.bug {

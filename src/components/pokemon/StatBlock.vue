@@ -33,6 +33,7 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
     </header> -->
     <div class="column column-left">
       <section id="PokemonBaseStats">
+        <img :src="`http://img.pokemondb.net/artwork/${pokemon.name.toLowerCase()}.jpg`" alt="">
         <h2>Base Stats</h2>
         <dl class="data">
           <dt>HP</dt>
@@ -79,7 +80,7 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
         </ol>
       </section>
       <section id="PokemonSize">
-        <h2>Size Information</h2>
+        <h2>Size</h2>
         <dl class="data">
           <dt>Height</dt>
           <dd>{{ pokemon.size.height.inches }}&rdquo; / {{ pokemon.size.height.metric }}m ({{ pokemon.size.height.scale }})
@@ -91,7 +92,7 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
         </dl>
       </section>
       <section>
-        <h2>Breeding Information</h2>
+        <h2>Breeding</h2>
         <dl class="data">
           <dt>Gender Ratio</dt>
           <dd>{{ pokemon.breeding.ratio.male }}% M / {{ pokemon.breeding.ratio.female }}% F</dd>
@@ -108,7 +109,7 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
     </div>
     <div class="column column-right">
       <section>
-        <h2>Capability List</h2>
+        <h2>Capabilities</h2>
         <ul class="data-list">
           <li v-if="pokemon.movement.overland > 0">Overland {{ pokemon.movement.overland }}</li>
           <li v-if="pokemon.movement.sky > 0">Sky {{ pokemon.movement.sky }}</li>
@@ -125,7 +126,7 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
         </ul>
       </section>
       <section>
-        <h2>Skill List</h2>
+        <h2>Skills</h2>
         <ul class="data-list">
           <li v-if="!(pokemon.skills.acrobatics.dice == 2 && pokemon.skills.acrobatics.modifier == 0)">Acrobatics
             {{ formatting.diceFormat(pokemon.skills.acrobatics) }} </li>
@@ -154,7 +155,7 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
         </ul>
       </section>
       <section>
-        <h2>Move List</h2>
+        <h2>Moves</h2>
         <ol class="moves-list data">
           <li>
           <span>Level</span><span>Move</span>
@@ -166,19 +167,19 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
         </ol>
       </section>
       <section>
-        <h2>TM/HM Move List</h2>
+        <h2>TM/HM Moves</h2>
         <p class="move-text">
           <span v-for="(move, idx) in pokemon.tmHmMoves" :key="idx">{{ move.id }} {{ move.name }}</span>
         </p>
       </section>
-      <section>
-        <h2>Egg Move List</h2>
-        <!-- <p class="move-text">
+      <!-- <section>
+        <h2>Egg Moves</h2>
+        <p class="move-text">
           <span v-for="(move, idx) in pokemon.eggMoves" :key="idx">{{move}}</span>
-        </p> -->
-      </section>
+        </p>
+      </section> -->
       <section>
-        <h2>Tutor Move List</h2>
+        <h2>Tutor Moves</h2>
         <p class="move-text">
           <span v-for="(move, idx) in pokemon.tutorMoves" :key="idx">{{ move }}</span>
         </p>
@@ -206,16 +207,8 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
     padding: 0.25rem 0.5rem;
     position: relative;
     border-bottom: 0.25rem solid $red;
-    clip-path: polygon(0px 100%, 0px 0%, 100% 0, 80% 100%);
-    // &::after {
-    //   content: '';
-    //   position: absolute;
-    //   bottom: 0;
-    //   left: 0;
-    //   width: 80%;
-    //   height: 0.25rem;
-    //   background-color: $red;
-    // }
+    //clip-path: polygon(0px 100%, 0px 0%, 100% 0, 80% 100%);
+
   }
   dl.data {
     display: grid;

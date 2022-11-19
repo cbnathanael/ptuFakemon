@@ -32,22 +32,18 @@ const position = computed(() => {
 </script>
 
 <template>
-    <aside v-if="ability != undefined" id="AbilityDetails" class="floating-tip" :style="{ top: position.top + 'px', left: position.left + 'px' }">
+    <aside v-if="ability != undefined" id="AbilityDetails" class="floating-tip"
+        :style="{ top: position.top + 'px', left: position.left + 'px' }">
         <div class="floating-tip-content">
             <h1>{{ ability.name }}</h1>
-            <dl>
-                <dt>Effect</dt>
-                <dd>{{ ability.effect }}</dd>
-                <dt v-if="ability.frequency != ''">Frequency</dt>&nbsp;
-                <dd v-if="ability.frequency != ''">{{ ability.frequency }}</dd>
-                <dt v-if="ability.target != ''">Target</dt>&nbsp;
-                <dd v-if="ability.target != ''">{{ ability.target }}</dd>
-                <dt v-if="ability.trigger != ''">Trigger</dt>&nbsp;
-                <dd v-if="ability.trigger != ''">{{ ability.trigger }}</dd>
-                <dt v-if="ability.keywords != ''">Keywords</dt>&nbsp;
-                <dd v-if="ability.keywords != ''">{{ ability.keywords }}</dd>
+            <p><strong>Effect</strong>: {{ ability.effect }}</p>
 
-            </dl>
+
+            <p v-if="ability.frequency != ''"><strong>Frequency:</strong>&nbsp;{{ ability.frequency }}</p>
+            <p v-if="ability.target != ''"><strong>Target:</strong>&nbsp;{{ ability.target }}</p>
+            <p v-if="ability.trigger != ''"><strong>Trigger:</strong>&nbsp;{{ ability.trigger }}</p>
+            <p v-if="ability.keywords != ''"><strong>Keywords:</strong>&nbsp;{{ ability.keywords }}</p>
+
         </div>
     </aside>
 </template>
@@ -55,22 +51,16 @@ const position = computed(() => {
 <style lang="scss">
 #AbilityDetails {
     position: fixed;
-    
+
     @include floating-tip(32px, 300px);
 
     h1 {
         font-size: 0.875rem;
         font-weight: 700;
     }
-
-    dl {
-
-        dt,
-        dd {
-            display: inline-block !important;
-            width: auto !important;
-        }
+    p {
+        font-size: 0.75rem;
     }
-
+    
 }
 </style>
