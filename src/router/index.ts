@@ -1,12 +1,13 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import store from "@/store/index";
-import PokemonStatsView from '../views/PokemonStatsView.vue'
+import PokedexStats from '../views/PokedexStats.vue'
+import PokemonGenerator from '../views/PokemonGenerator.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'pokemonStats',
-    component: PokemonStatsView
+    name: 'pokedex',
+    component: PokedexStats
   },
   {
     path: '/login',
@@ -14,9 +15,9 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "Login" */ '../views/LoginView.vue')
   },
   {
-    path: '/Style',
-    name: 'Style',
-    component: () => import(/* webpackChunkName: "Style" */ '../views/StyleView.vue')
+    path: '/PokemonGenerator',
+    name: 'pokeGen',
+    component: () => import(/* webpackChunkName: "Style" */ '../views/PokemonGenerator.vue')
   }
 ]
 

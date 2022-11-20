@@ -1,7 +1,18 @@
-@mixin transition-quick {
-  transition: all 0.3s cubic-bezier(.25, .1, .25, 1);
+@mixin transition-fast {
+  transition: all 0.3s cubic-bezier(0.79,0.14,0.15,0.86);
 }
-
+@mixin transition-fast-in {
+  transition: all 0.3s cubic-bezier(0,0,0.15,0.86);
+}
+@mixin transition-fast-out {
+  transition: all 0.3s cubic-bezier(0.79,0.14,1,1);
+}
+@mixin transition-medium-in {
+  transition: all 0.5s cubic-bezier(0,0,0.15,0.86);
+}
+@mixin transition-medium-out {
+  transition: all 0.5s cubic-bezier(0.79,0.14,1,1);
+}
 @mixin floating-tip($padding, $width) {
   background: rgba($gray_dark, 0.9);
   font-size: 0.75rem;

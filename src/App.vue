@@ -1,7 +1,9 @@
+<script setup lang="ts">
+import SiteHeader from './components/SiteHeader.vue';
+</script>
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-  </nav>
+  <!-- <div id="bgwrap"></div> -->
+  <SiteHeader></SiteHeader>
   <router-view/>
 </template>
 

@@ -17,7 +17,6 @@ const moveData:MoveData = reactive({
 })
 onBeforeMount(() => {
     store.dispatch("moves/lookupMove", props.moveName).then((result) => {
-        console.log(result)
         moveData.move = result;
     }).catch(err => {
         console.log(err);

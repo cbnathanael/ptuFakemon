@@ -21,6 +21,7 @@
     "vuex": "^4.0.0"
   },
   "devDependencies": {
+    "@types/random-number-csprng": "^1.0.0",
     "@types/vue-select": "^3.16.2",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",

@@ -27,7 +27,7 @@ const loginInfo = reactive({
 
 async function login() {
   store.dispatch("authentication/authenticate",loginInfo).then((result)=>{
-    router.push({ name: 'pokemonStats' })
+    router.push({ name: 'pokedex' })
   }).catch(err=>{
     console.log(err);
   })

@@ -2,21 +2,22 @@ import * as  Realm from 'realm-web';
 import appRealm from '@/services/realm'; 
 import Pokemon from '@/interfaces/pokemon/pokemon';
 import PokemonAbility from '@/interfaces/pokemon/PokemonAbility';
-
+import PokemonNature from '@/interfaces/pokemon/PokemonNature';
 const mongo = appRealm.currentUser?.mongoClient("Cluster0");
 
 const pokemon = {
     namespaced: true,
 
     state: () => ({
-        pokemonNames: null,
+        pokemonNames: [],
         activePokemon: null,
-        abilities: []
+        abilities: [],
+        natures: []
     }),
 
     actions: {
         async getPokemonNames({commit, state}:any) {
-            if(state.pokemonNames == null) {
+            if(state.pokemonNames.length == 0) {
                 const collection = mongo?.db("fakemon").collection("pokemon");
                 const pokemon = await collection?.find({}, {sort: {name: 1}});
                 
@@ -50,7 +51,21 @@ const pokemon = {
                     return ability;
                 }
             }
-        } 
+        },
+        async lookupNature({commit, state}:any, natureName:string) {
+            const nature = state.natures.find((nature: PokemonNature) => nature.nature === natureName)
+            if(nature) {
+                //no need to add it to the store
+                return nature;
+            } else {
+                const collection = mongo?.db("fakemon").collection("pokemonNatures");
+                const nature = await collection?.findOne({name: natureName});
+                if(nature) {
+                    commit("addnature", nature);
+                    return nature;
+                }
+            }
+        }  
         
     },
     getters: {
@@ -70,6 +85,9 @@ const pokemon = {
         },
         addAbility(state:any, ability:PokemonAbility) {
             state.abilities.push(ability);
+        },
+        addNature(state:any, nature:PokemonNature) {
+            state.abilities.push(nature);
         }
     },
 }
