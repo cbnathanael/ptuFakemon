@@ -11,6 +11,6 @@ export default {
         Math.floor( Math.random() * 100 )+1
     },
     getNumberBetween(min:number, max:number) {
-        return Math.random() * (max - min) + min;
+        return Math.floor(Math.random() * (max - min)) + min;
     }
 }

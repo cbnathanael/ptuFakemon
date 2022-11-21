@@ -58,10 +58,12 @@ async function choosePokemon() {
         naturewalk: species.natureWalk,
         abilities: [],
         moves: [],
-        capabilities: [],
+        capabilities: species.capabilities,
         gender: '',
         hitPoints: 0,
-        nature: undefined
+        nature: undefined,
+        size: species.size,
+        skills: species.skills
     };
     const abilityPick = rng.getD6roll(1);
     pokemon.abilities.push(species.abilities.basic[abilityPick[0] % 2 ? 0 : 1]);
@@ -69,10 +71,9 @@ async function choosePokemon() {
     pokemon.gender = genderPick <= species.breeding.ratio.male ? 'Male' : 'Female';
 
     const naturePick = rng.getNumberBetween(1, 36);
-    collection = mongo?.db("fakemon").collection("pokemonNatures");
-    const nature = await collection?.findOne({ id: naturePick });
+    
+    const nature = await store.dispatch("pokemon/lookupNaturebyId", naturePick);
     pokemon.nature = nature;
-
     pokemon.stats.hp.base += nature.hp;
     pokemon.stats.attack.base += nature.atk;
     pokemon.stats.defense.base += nature.def;
@@ -81,12 +82,12 @@ async function choosePokemon() {
     pokemon.stats.speed.base += nature.spd;
 
     let stats = [
-        { name: "hp", value: species.stats.hp },
-        { name: "attack", value: species.stats.attack },
-        { name: "defense", value: species.stats.defense },
-        { name: "specialAttack", value: species.stats.specialAttack },
-        { name: "specialDefense", value: species.stats.specialDefense },
-        { name: "speed", value: species.stats.speed },
+        { name: "hp", value: pokemon.stats.hp.base },
+        { name: "attack", value: pokemon.stats.attack.base },
+        { name: "defense", value: pokemon.stats.defense.base },
+        { name: "specialAttack", value: pokemon.stats.specialAttack.base },
+        { name: "specialDefense", value: pokemon.stats.specialDefense.base },
+        { name: "speed", value: pokemon.stats.speed.base },
     ];
 
     stats = stats.sort((a, b) => b.value - a.value);
@@ -100,25 +101,37 @@ async function choosePokemon() {
     stats.forEach(s => {
         switch (s.name) {
             case "hp":
-                pokemon.stats.hp.base = s.value;
+                pokemon.stats.hp.mod = s.value - pokemon.stats.hp.base; //a very backward way of keeping stats organized
                 break;
             case "attack":
-                pokemon.stats.attack.base = s.value;
+                pokemon.stats.attack.mod = s.value - pokemon.stats.attack.base;
                 break;
             case "defense":
-                pokemon.stats.defense.base = s.value;
+                pokemon.stats.defense.mod = s.value - pokemon.stats.defense.base;
                 break;
             case "specialAttack":
-                pokemon.stats.specialAttack.base = s.value;
+                pokemon.stats.specialAttack.mod = s.value - pokemon.stats.specialAttack.base;
                 break;
             case "specialDefense":
-                pokemon.stats.specialDefense.base = s.value;
+                pokemon.stats.specialDefense.mod = s.value - pokemon.stats.specialDefense.base;
                 break;
             case "speed":
-                pokemon.stats.speed.base = s.value;
+                pokemon.stats.speed.mod = s.value - pokemon.stats.speed.base;
                 break;
         }
     })
+
+    const sizeMod = rng.getNumberBetween(-5,5) / 100;
+    const inch = Math.round((species.size.height.inches * sizeMod) + species.size.height.inches);
+    const meter = (inch * 0.0254).toFixed(2);
+
+    const lbs = Math.round((parseFloat(species.size.weight.pounds) * sizeMod) + parseFloat(species.size.weight.pounds));
+    const kilograms = (lbs * 0.45359237).toFixed(2);
+
+    pokemon.size.height.inches = inch;
+    pokemon.size.height.metric = parseFloat(meter);
+    pokemon.size.weight.pounds = lbs;
+    pokemon.size.weight.kilograms = parseFloat(kilograms);
 
 
     pokemon.hitPoints = pokemon.level + ((pokemon.stats.hp.base + pokemon.stats.hp.mod) * 3) + 10;
@@ -127,7 +140,7 @@ async function choosePokemon() {
 }
 </script>
 <template>
-    <form v-if="!selectedPokemon.show" class="generator-select">
+    <form class="generator-select">
         <label>
             Pokemon:
             <vueSelect class="pokemon-select" :options="pokemonNames" v-model="selectedPokemon.name"></vueSelect>

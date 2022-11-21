@@ -1,6 +1,7 @@
 import Pokemon from "./pokemon";
 import Move from './move';
 import PokemonNature from "./PokemonNature";
+import DieType from "../core/dieType";
 export default interface PokemonCharacter  {
     speciesData: Pokemon,
     name: string,
@@ -30,6 +31,37 @@ export default interface PokemonCharacter  {
     moves: Move[],
     capabilities: string[],
     gender: string,
-    nature: PokemonNature|undefined
+    nature: PokemonNature|undefined,
+    size: {
+        height: {
+            inches: number,
+            metric: number,
+            scale: string
+        },
+        weight: {
+            pounds: number,
+            kilograms: number,
+            scale: number
+        }
+    },
+    skills: {
+        acrobatics: DieType,
+        athletics: DieType
+        charm: DieType
+        combat: DieType
+        command: DieType
+        generalEducation: DieType
+        medicalEducation: DieType
+        occultEducation: DieType
+        pokemonEducation: DieType
+        technologyEducation: DieType
+        focus: DieType
+        guile: DieType
+        intimidate: DieType
+        intuition: DieType
+        perception: DieType
+        stealth: DieType
+        survival: DieType
+    }
 }
 

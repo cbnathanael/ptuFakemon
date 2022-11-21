@@ -37,6 +37,8 @@ input[type="number"]::-webkit-inner-spin-button,
 button {
   cursor: pointer;
 }
+
+
 .v-select {
   input.vs__search,
     input.vs__search:focus {
@@ -54,9 +56,15 @@ button {
       border: none;
     }
 
-    .vs__selected {
-      border-bottom: 1px solid #DBDBDB !important;
+    .vs__selected, .vs__search {
+      border-bottom: 1px solid #DBDBDB;
       border-radius: 0;
+      margin: 0 !important;
+      padding: 0 0.25rem;
+    }
+    .vs__search:focus {
+      background: $gray_light;
+      border-bottom-color: $gray_med;
     }
 
     .vs__dropdown-menu {

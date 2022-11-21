@@ -9,10 +9,12 @@ const router = useRouter();
         <nav>
             <ul>
                 <li>
-                    <router-link to="/" class="pokedex" :class="{active: $route.name == 'pokedex'}">Pokedex</router-link>
+                    <router-link to="/" class="pokedex" :class="{ active: $route.name == 'pokedex' }">Pokedex
+                    </router-link>
                 </li>
                 <li>
-                    <router-link to="/PokemonGenerator" class="pokeGen" :class="{active: $route.name == 'pokeGen'}">Pokemon Gen</router-link>
+                    <router-link to="/PokemonGenerator" class="pokeGen" :class="{ active: $route.name == 'pokeGen' }">
+                        Pokemon Gen</router-link>
                 </li>
             </ul>
         </nav>
@@ -29,11 +31,14 @@ const router = useRouter();
         background: $red;
     }
 
-    &.pokeGen h1 {
-        background: $blue;
+    &.pokeGen {
+        background: linear-gradient(90deg, rgba($blue_light, 1) 0%, rgba(white, 1) 80%);
+        h1 {
+            background: $blue;
 
-        &::before {
-            background: $blue_med;
+            &::before {
+                background: $blue_med;
+            }
         }
     }
 
@@ -43,7 +48,7 @@ const router = useRouter();
         background: $red;
         display: inline-block;
         color: white;
-        
+
         &::before {
             content: "";
             position: absolute;

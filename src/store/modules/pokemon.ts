@@ -52,20 +52,34 @@ const pokemon = {
                 }
             }
         },
-        async lookupNature({commit, state}:any, natureName:string) {
+        async lookupNature({dispatch, commit, state}:any, natureName:string) {
             const nature = state.natures.find((nature: PokemonNature) => nature.nature === natureName)
             if(nature) {
-                //no need to add it to the store
                 return nature;
             } else {
-                const collection = mongo?.db("fakemon").collection("pokemonNatures");
-                const nature = await collection?.findOne({name: natureName});
-                if(nature) {
-                    commit("addnature", nature);
-                    return nature;
+                const natures = await dispatch("getAllNatures");
+                if(natures) {
+                    return natures.find((nature: PokemonNature) => nature.nature === natureName);
                 }
             }
-        }  
+        },  
+        async lookupNaturebyId({dispatch, commit, state}:any, natureId:number) {
+            const nature = state.natures.find((nature: PokemonNature) => nature.id === natureId)
+            if(nature) {
+                return nature;
+            } else {
+                const natures = await dispatch("getAllNatures", );
+                if(natures) {
+                    return natures.find((nature: PokemonNature) => nature.id === natureId);
+                }
+            }
+        }, 
+        async getAllNatures({commit, state}:any) {
+            const collection = mongo?.db("fakemon").collection("pokemonNatures");
+            const natures = await collection?.find();
+            commit("addNatures", natures);
+            return natures;
+        }
         
     },
     getters: {
@@ -73,7 +87,20 @@ const pokemon = {
             return state.pokemonNames;
         },
         ability: (state:any) => (abilityName:string) => {
-            return state.abilities.find((ability: PokemonAbility) => ability.name === abilityName)
+            return state.abilities.find((ability: PokemonAbility) => ability.name === abilityName);
+        },
+        nature: (state:any) =>(natureName:string) =>{
+            return state.natures.find((nature: PokemonNature)=>nature.nature === natureName);
+        },
+        allNatures: (state: any) => {
+            return state.natures;
+        },
+        natureNames: (state:any) => {
+            const names:string[] = [];
+            state.natures.forEach((n:PokemonNature) => {
+                names.push(n.nature);
+            })
+            return names;
         }
     },
     mutations: {
@@ -86,8 +113,8 @@ const pokemon = {
         addAbility(state:any, ability:PokemonAbility) {
             state.abilities.push(ability);
         },
-        addNature(state:any, nature:PokemonNature) {
-            state.abilities.push(nature);
+        addNatures(state:any, natures:PokemonNature[]) {
+            state.natures = natures;
         }
     },
 }
