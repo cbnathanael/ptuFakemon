@@ -12,6 +12,7 @@
     "@apollo/client": "^3.7.1",
     "@vue/apollo-composable": "^4.0.0-beta.1",
     "core-js": "^3.8.3",
+    "del-cli": "^5.0.0",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
     "realm-web": "^2.0.0",
@@ -34,10 +35,10 @@
     "@vue/eslint-config-typescript": "^9.1.0",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
+    "execa": "latest",
     "sass": "^1.32.7",
     "sass-loader": "^12.0.0",
-    "typescript": "~4.5.5",
-    "execa": "latest"
+    "typescript": "~4.5.5"
   },
   "eslintConfig": {
     "root": true,
