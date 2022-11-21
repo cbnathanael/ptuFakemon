@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "ghDeploy": "git commit -m 'pushing dist subtree' && git subtree push --prefix dist origin gh-pages"
+    "deploy": "node gh-pages-deploy.js"
   },
   "dependencies": {
     "@apollo/client": "^3.7.1",
@@ -36,7 +36,8 @@
     "eslint-plugin-vue": "^8.0.3",
     "sass": "^1.32.7",
     "sass-loader": "^12.0.0",
-    "typescript": "~4.5.5"
+    "typescript": "~4.5.5",
+    "execa": "latest"
   },
   "eslintConfig": {
     "root": true,
