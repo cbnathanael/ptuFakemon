@@ -166,7 +166,7 @@ form.generator-select {
     border-radius: 0.5rem;
     display: inline-block;
     margin: 0 1rem 2rem;
-    max-height: 44px;
+    //max-height: 44px;
     // padding: 0.5rem 0 0.5rem 1rem;
 
     label {

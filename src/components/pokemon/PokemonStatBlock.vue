@@ -125,9 +125,13 @@ const props = defineProps<Props>();
     border-radius: 0.5rem;
     padding: 0.5rem;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 0.5rem;
 
+    grid-template-columns: 1fr;
+    grid-row-gap: 0.5rem;
+    @media screen and (min-width:1024px) {
+        grid-template-columns: 1fr 1fr;
+    grid-column-gap: 0.5rem;
+    }
     &>section {
         border-radius: 0.4rem;
 
@@ -140,7 +144,7 @@ const props = defineProps<Props>();
         header {
             background: $gray;
             border-radius: 0.4rem 0.4rem 0 0;
-            padding: 1rem;
+            padding: 0.5rem;
             display: grid;
             grid-template-columns: 1fr 2fr;
             grid-column-gap: 0.5rem;
