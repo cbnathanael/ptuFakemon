@@ -56,7 +56,7 @@ const position = computed(() => {
 
     h1 {
         font-size: 0.875rem;
-        font-weight: 700;
+        font-weight: 600;
     }
     p {
         font-size: 0.75rem;

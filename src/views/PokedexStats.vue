@@ -90,7 +90,7 @@ function choosePokemon(value?: string) {
 
     .vs__dropdown-option--highlight {
       background: $blue;
-      color: white;
+      color: $off_white;
     }
 
     .vs__dropdown-option--deselect {

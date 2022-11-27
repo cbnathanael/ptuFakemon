@@ -4,7 +4,7 @@ import { useStore } from 'vuex';
 import vueSelect from "vue-select";
 import appRealm from '@/services/realm';
 import rng from '@/rng';
-import PokemonCharacterSheet from '@/components/pokemon/PokemonCharacterSheet.vue'
+import PokemonStatBlock from '@/components/pokemon/PokemonStatBlock.vue'
 import PokemonCharacter from '@/interfaces/pokemon/pokemonCharacter';
 const store = useStore();
 const mongo = appRealm.currentUser?.mongoClient("Cluster0");
@@ -133,7 +133,13 @@ async function choosePokemon() {
     pokemon.size.weight.pounds = lbs;
     pokemon.size.weight.kilograms = parseFloat(kilograms);
 
-
+    pokemon.contestStats = {
+        beauty: Math.floor((pokemon.stats.specialAttack.base+pokemon.stats.specialAttack.mod)/10),
+        cool: Math.floor((pokemon.stats.attack.base+pokemon.stats.attack.mod)/10),
+        cute: Math.floor((pokemon.stats.speed.base+pokemon.stats.speed.mod)/10),
+        smart: Math.floor((pokemon.stats.specialDefense.base+pokemon.stats.specialDefense.mod)/10),
+        tough: Math.floor((pokemon.stats.defense.base+pokemon.stats.defense.mod)/10),
+    }
     pokemon.hitPoints = pokemon.level + ((pokemon.stats.hp.base + pokemon.stats.hp.mod) * 3) + 10;
     thisMon.value = pokemon;
     selectedPokemon.show = true;
@@ -151,22 +157,22 @@ async function choosePokemon() {
         </label>
         <button type="button" @click="choosePokemon">Go!</button>
     </form>
-    <PokemonCharacterSheet :pokemon="thisMon" v-if="selectedPokemon.show"></PokemonCharacterSheet>
+    <PokemonStatBlock :pokemon="thisMon" v-if="selectedPokemon.show"></PokemonStatBlock>
 </template>
 
 <style lang="scss">
 form.generator-select {
-    background: $blue;
-    border-radius: 1000px;
+    background: rgba($body-font-color, 0.7);
+    border-radius: 0.5rem;
     display: inline-block;
-    margin: 0 1rem;
+    margin: 0 1rem 2rem;
     max-height: 44px;
     // padding: 0.5rem 0 0.5rem 1rem;
 
     label {
         padding: 0.5rem 0;
-        color: white;
-        font-weight: 700;
+        color: $off_white;
+        font-weight: 600;
         display: inline-block;
         margin-left: 1.5rem;
         height: 44px;
@@ -175,16 +181,17 @@ form.generator-select {
         .v-select {
             display: inline-block;
             font-weight: 400;
-            color: white;
+            color: $off_white;
             margin-left: 0.5rem;
         }
 
         input {
-            border-bottom: 1px solid $blue_med !important;
+            border-bottom: 1px solid rgba($body-font-color, 0.5) !important;
 
             &:focus {
-                background: rgba($blue_med, 0.3);
-                color: white;
+                //background: rgba($blue_med, 0.3);
+                border-bottom-color: $body-font-color !important;
+                color: $off_white;
             }
 
             &[type=number] {
@@ -197,15 +204,16 @@ form.generator-select {
 
             .vs__selected,
             .vs__search {
-                color: white;
-                border-bottom: 1px solid $blue_med !important;
+                color: $off_white;
+                border-bottom: 1px solid rgba($body-font-color, 0.5) !important;
                 margin: 0 !important;
                 padding: 0 0.25rem;
             }
 
             .vs__search:focus {
-                background: rgba($blue_med, 0.3);
-                color: white;
+                //background: rgba($blue_med, 0.3);
+                border-bottom-color: $body-font-color !important;
+                color: $off_white;
             }
 
             .vs__actions {
@@ -216,37 +224,20 @@ form.generator-select {
 
     button {
         margin-left: 2rem;
-        padding: 0.5rem 1rem 0.5rem 0.25rem;
-        border-radius: 0 1000px 1000px 0;
+        padding: 0.5rem 1.5rem 0.5rem 0.25rem;
         height: 44px;
-        color: white;
-        background: $blue_med;
-        position: relative;
-        z-index: 2;
+        color: $off_white;
+        background: none;
+
         @include transition-fast-in;
 
-        &::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            top: 0;
-            left: -12px;
-            width: 1.5rem;
-            height: 100%;
-            background: black;
-            transform: skewX(-30deg);
-            transform-origin: 100%;
-            background: $blue_med;
-            z-index: -1;
-            @include transition-fast-in;
-        }
 
         &:hover {
-            background: black;
+            color: $yellow_accent;
             @include transition-fast-out;
 
             &::before {
-                background: black;
+            
                 @include transition-fast-out;
             }
         }

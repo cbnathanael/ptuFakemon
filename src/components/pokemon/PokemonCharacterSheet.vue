@@ -9,6 +9,7 @@ import AbilityDetail from './AbilityDetail.vue';
 import MoveDisplay from "./MoveDisplay.vue";
 import VueSelect from 'vue-select';
 import PokemonNature from '@/interfaces/pokemon/PokemonNature';
+import MoveDetailSheet from './MoveDetailSheet.vue';
 const store = useStore();
 interface Props {
     pokemon: PokemonCharacter;
@@ -97,7 +98,8 @@ const props = defineProps<Props>();
                     <dd class="abilities">
                         <span v-for="(ability, idx) in data.pokemon?.abilities" :key="idx"
                             @mouseover="abilityDisplay(ability, true, $event)"
-                            @mouseleave="abilityDisplay(ability, false, $event)" class="hoverable">{{ ability }}</span>
+                            @mouseleave="abilityDisplay(ability, false, $event)" 
+                            class="hoverable">{{ ability }}</span>
                         <!-- <input type="text" :value="pokemon.abilities[0]"/>
                         <input type="text" />
                         <input type="text" />
@@ -161,19 +163,19 @@ const props = defineProps<Props>();
                 <div class="sub-group">
                     <dl class="stat-group stat-block">
                         <dt class="hit-points">Hit Points</dt>
-                        <dd class="hit-points">{{data.pokemon?.hitPoints}} / {{data.pokemon?.hitPoints}}</dd>
+                        <dd class="hit-points">{{ data.pokemon?.hitPoints }} / {{ data.pokemon?.hitPoints }}</dd>
                         <dt>HP</dt>
-                        <dd>{{data.pokemon?.stats.hp.base + data.pokemon?.stats.hp.mod}}</dd>
+                        <dd>{{ data.pokemon?.stats.hp.base + data.pokemon?.stats.hp.mod }}</dd>
                         <dt>SpAtk</dt>
-                        <dd>{{data.pokemon?.stats.specialAttack.base + data.pokemon?.stats.specialAttack.mod}}</dd>
+                        <dd>{{ data.pokemon?.stats.specialAttack.base + data.pokemon?.stats.specialAttack.mod }}</dd>
                         <dt>Atk</dt>
-                        <dd>{{data.pokemon?.stats.attack.base + data.pokemon?.stats.attack.mod}}</dd>
+                        <dd>{{ data.pokemon?.stats.attack.base + data.pokemon?.stats.attack.mod }}</dd>
                         <dt>SpDef</dt>
-                        <dd>{{data.pokemon?.stats.specialDefense.base + data.pokemon?.stats.specialDefense.mod}}</dd>
+                        <dd>{{ data.pokemon?.stats.specialDefense.base + data.pokemon?.stats.specialDefense.mod }}</dd>
                         <dt>Def</dt>
-                        <dd>{{data.pokemon?.stats.defense.base + data.pokemon?.stats.defense.mod}}</dd>
+                        <dd>{{ data.pokemon?.stats.defense.base + data.pokemon?.stats.defense.mod }}</dd>
                         <dt>Spd</dt>
-                        <dd>{{data.pokemon?.stats.speed.base + data.pokemon?.stats.speed.mod}}</dd>
+                        <dd>{{ data.pokemon?.stats.speed.base + data.pokemon?.stats.speed.mod }}</dd>
                     </dl>
                     <dl class="stat-group">
                         <dt>Phys Evade</dt>
@@ -187,6 +189,95 @@ const props = defineProps<Props>();
                     </dl>
                 </div>
             </div>
+            <div class="stat-column">
+                <section class="edges">
+                    <header>
+                        <h2>PokeEdge / Tutor Item</h2>
+                        <span>Cost</span>
+                    </header>
+                    <ul>
+                        <li>
+                            <span class="edge"></span>
+                            <span class="cost"></span>
+                        </li>
+                        <li>
+                            <span class="edge"></span>
+                            <span class="cost"></span>
+                        </li>
+                        <li>
+                            <span class="edge"></span>
+                            <span class="cost"></span>
+                        </li>
+                        <li>
+                            <span class="edge"></span>
+                            <span class="cost"></span>
+                        </li>
+                        <li>
+                            <span class="edge"></span>
+                            <span class="cost"></span>
+                        </li>
+                        <li>
+                            <span class="edge"></span>
+                            <span class="cost"></span>
+                        </li>
+                        <li>
+                            <span class="total">Remaining Tutor Points: </span>
+                        </li>
+                    </ul>
+                </section>
+                <dl class="stat-group">
+                    <dt>Inheritance Moves</dt>
+                    <dd></dd>
+                    <dt>Vitamins</dt>
+                    <dd></dd>
+                </dl>
+                <dl class="stat-group stat-block">
+                    <dt>Beauty</dt>
+                    <dd>{{ pokemon.contestStats.beauty }}</dd>
+                    <dt>Cool</dt>
+                    <dd>{{ pokemon.contestStats.cool }}</dd>
+                    <dt>Cute</dt>
+                    <dd>{{ pokemon.contestStats.cute }}</dd>
+                    <dt>Smart</dt>
+                    <dd>{{ pokemon.contestStats.smart }}</dd>
+                    <dt>Tough</dt>
+                    <dd>{{ pokemon.contestStats.tough }}</dd>
+                    <dt class="poffins">Poffins</dt>
+                    <dd class="poffins"></dd>
+                </dl>
+                <section class="notes">
+                    <header>
+                        <h2>Notes</h2>
+                    </header>
+                    <p></p>
+                </section>
+            </div>
+        </section>
+        <section class="moves">
+            <header>
+                <span>Move</span>
+                <span>Freq</span>
+                <span>AC</span>
+                <span>Type</span>
+                <span>Damage<br />Roll / Type</span>
+                <span>Range</span>
+                <span>Special Effect</span>
+                <span>Contest Effect</span>
+            </header>
+            <ul>
+                <MoveDetailSheet :move-name="pokemon.speciesData.moves[0].name"></MoveDetailSheet>
+                <!-- <li>
+                    <span>Move</span>
+                    <span>Freq</span>
+                    <span>AC</span>
+                    <span>Type</span>
+                    <span>Roll</span>
+                    <span>Type</span>
+                    <span>Range</span>
+                    <span>Special Effect</span>
+                    <span>Contest Effect</span>
+                </li> -->
+            </ul>
         </section>
         <AbilityDetail :ability-name="hoveredAbility.name" :target="hoveredAbility.target"></AbilityDetail>
     </article>
@@ -194,25 +285,34 @@ const props = defineProps<Props>();
 
 <style scoped lang="scss">
 #PokemonCharacterSheet {
-    max-width: 60rem;
-    margin: 0 auto;
+    //max-width: 60rem;
+    margin: 0 1rem;
+    background: rgba($off_white, 0.6);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
 
     .stats {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-column-gap: 1rem;
     }
+
     .sub-group {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-column-gap: 0.125rem;
         margin-top: 0.5rem;
     }
+
     dl.stat-group {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-row-gap: 0.125rem;
         background-color: $gray;
+
+        &+dl.stat-group {
+            margin-top: 1rem;
+        }
 
         dt,
         dd {
@@ -245,7 +345,7 @@ const props = defineProps<Props>();
         }
 
         dt {
-            font-weight: bold;
+            font-weight: 600;
             background: $gray_light;
         }
 
@@ -257,17 +357,22 @@ const props = defineProps<Props>();
                 border-bottom: none;
             }
         }
+
         &.stat-block {
-            grid-template-columns: repeat(4,1fr);
+            grid-template-columns: repeat(4, 1fr);
             border: 0.125rem solid $gray;
-            
-            dt.hit-points {
+
+            dt.hit-points,
+            dt.poffins {
                 grid-column: 1 / span 2
             }
-            dd.hit-points {
+
+            dd.hit-points,
+            dd.poffins {
                 grid-column: 3 / span 2
             }
         }
+
         dd.skills {
             span+span::before {
                 content: ', ';
@@ -275,12 +380,73 @@ const props = defineProps<Props>();
         }
     }
 
+    section.edges {
+        border: 2px solid $gray;
+        margin-bottom: 1rem;
+
+        header {
+            display: grid;
+            grid-template-columns: 4fr 1fr;
+            background: $gray_light;
+
+            h2,
+            span {
+                font-size: 1rem;
+                font-weight: 600;
+                padding: 0.25rem 0.5rem;
+            }
+        }
+
+        li {
+            display: grid;
+            grid-template-columns: 4fr 1fr;
+            min-height: 2rem;
+
+            span {
+                padding: 0.25rem 0.5rem;
+
+                &.total {
+                    grid-column: 1 / span 2;
+                }
+            }
+
+            &+li {
+                border-top: 2px solid $gray;
+            }
+        }
+
+        span:last-child:not(.total) {
+            border-left: 2px solid $gray;
+        }
+    }
 
     .abilities {
 
         input {
             display: inline;
 
+        }
+    }
+
+    .notes {
+        border: 2px solid $gray;
+        margin-top: 1rem;
+
+        header {
+            background: $gray_light;
+            padding: 0.25rem 0.5rem;
+
+            h2 {
+                font-size: 1rem;
+                font-weight: 600;
+            }
+        }
+    }
+
+    .moves {
+        header, li {
+            display: grid;
+            grid-template-columns: 1fr 1fr 3rem 1fr 1fr 1fr 1fr 2fr 1fr;
         }
     }
 }

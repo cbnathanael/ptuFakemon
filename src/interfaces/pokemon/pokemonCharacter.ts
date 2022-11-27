@@ -62,6 +62,13 @@ export default interface PokemonCharacter  {
         perception: DieType
         stealth: DieType
         survival: DieType
+    },
+    contestStats: {
+        beauty: number,
+        cool: number,
+        cute: number,
+        smart: number,
+        tough: number,
     }
 }
 

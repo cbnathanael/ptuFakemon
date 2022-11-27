@@ -141,16 +141,16 @@ const props = defineProps<Props>();
 div.type-display-block {
     display: inline-block;
     position: relative;
-
+    border-radius: 1000px;
     .svg-wrap {
         display: flex;
         justify-content: center;
         align-items: center;
         align-content: center;
-        height: 24px;
-        width: 24px;
+        height: 1.5rem;
+        width: 1.5rem;
         position: absolute;
-        left: 0;
+        left: 0.25rem;
         top: 0;
         z-index: 1;
     }
@@ -162,13 +162,12 @@ div.type-display-block {
 
     .name {
         display: inline-block;
-        color: white;
+        color: $off_white;
         text-transform: uppercase;
-        line-height: 24px;
-        margin-left: 20px;
-        clip-path: polygon(0px 24px, 12px 0%, 100% 0, 100% 100%);
-        padding: 0 6px 0 12px;
-        font-weight: 700;
+        line-height: 1.5rem;
+        line-height: 1.5rem;
+        padding: 0 0.75rem 0 2rem;
+        // font-weight: 600;
     }
 
 
@@ -181,9 +180,9 @@ div.type-display-block {
         }
 
 
-        .name {
-            background: $type_bug_dark;
-        }
+        // .name {
+        //     background: $type_bug_dark;
+        // }
     }
 
     &.dark {
@@ -195,9 +194,9 @@ div.type-display-block {
         }
 
 
-        .name {
-            background: $type_dark_dark;
-        }
+        // .name {
+        //     background: $type_dark_dark;
+        // }
     }
 
     &.dragon {
@@ -209,9 +208,9 @@ div.type-display-block {
         }
 
 
-        .name {
-            background: $type_dragon_dark;
-        }
+        // .name {
+        //     background: $type_dragon_dark;
+        // }
     }
 
     &.electric {
@@ -223,9 +222,9 @@ div.type-display-block {
         }
 
 
-        .name {
-            background: $type_electric_dark;
-        }
+        // .name {
+        //     background: $type_electric_dark;
+        // }
     }
 
     &.fairy {
@@ -237,9 +236,9 @@ div.type-display-block {
         }
 
 
-        .name {
-            background: $type_fairy_dark;
-        }
+        // .name {
+        //     background: $type_fairy_dark;
+        // }
     }
 
     &.fighting {
@@ -251,9 +250,9 @@ div.type-display-block {
         }
 
 
-        .name {
-            background: $type_fighting_dark;
-        }
+        // .name {
+        //     background: $type_fighting_dark;
+        // }
     }
 
     &.fire {
@@ -265,9 +264,9 @@ div.type-display-block {
         }
 
 
-        .name {
-            background: $type_fire_dark;
-        }
+        // .name {
+        //     background: $type_fire_dark;
+        // }
     }
 
     &.flying {
@@ -279,9 +278,9 @@ div.type-display-block {
         }
 
 
-        .name {
-            background: $type_flying_dark;
-        }
+        // .name {
+        //     background: $type_flying_dark;
+        // }
     }
 
     &.ghost {
@@ -293,9 +292,9 @@ div.type-display-block {
         }
 
 
-        .name {
-            background: $type_ghost_dark;
-        }
+        // .name {
+        //     background: $type_ghost_dark;
+        // }
     }
 
     &.grass {
@@ -307,9 +306,9 @@ div.type-display-block {
         }
 
 
-        .name {
-            background: $type_grass_dark;
-        }
+        // .name {
+        //     background: $type_grass_dark;
+        // }
     }
 
     &.ground {
@@ -321,9 +320,9 @@ div.type-display-block {
         }
 
 
-        .name {
-            background: $type_ground_dark;
-        }
+        // .name {
+        //     background: $type_ground_dark;
+        // }
     }
 
     &.ice {
@@ -335,9 +334,9 @@ div.type-display-block {
         }
 
 
-        .name {
-            background: $type_ice_dark;
-        }
+        // .name {
+        //     background: $type_ice_dark;
+        // }
     }
 
     &.normal {
@@ -349,9 +348,9 @@ div.type-display-block {
         }
 
 
-        .name {
-            background: $type_normal_dark;
-        }
+        // .name {
+        //     background: $type_normal_dark;
+        // }
     }
 
     &.poison {
@@ -363,9 +362,9 @@ div.type-display-block {
         }
 
 
-        .name {
-            background: $type_poison_dark;
-        }
+        // .name {
+        //     background: $type_poison_dark;
+        // }
     }
 
     &.psychic {
@@ -377,9 +376,9 @@ div.type-display-block {
         }
 
 
-        .name {
-            background: $type_psychic_dark;
-        }
+        // .name {
+        //     background: $type_psychic_dark;
+        // }
     }
 
     &.rock {
@@ -391,9 +390,9 @@ div.type-display-block {
         }
 
 
-        .name {
-            background: $type_rock_dark;
-        }
+        // .name {
+        //     background: $type_rock_dark;
+        // }
     }
 
     &.steel {
@@ -405,9 +404,9 @@ div.type-display-block {
         }
 
 
-        .name {
-            background: $type_steel_dark;
-        }
+        // .name {
+        //     background: $type_steel_dark;
+        // }
     }
 
     &.water {
@@ -419,9 +418,9 @@ div.type-display-block {
         }
 
 
-        .name {
-            background: $type_water_dark;
-        }
+        // .name {
+        //     background: $type_water_dark;
+        // }
     }
 
 

@@ -220,7 +220,7 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
       padding: 0.25rem 0.5rem;
     }
     dt {
-      font-weight: bold;
+      font-weight: 600;
       background: $gray_light;
     }
     dd {
@@ -236,7 +236,7 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
         padding: 0.25rem 0.5rem;
       &:first-child {
         background: $gray_light;
-        font-weight: 700;
+        font-weight: 600;
       }
       &:last-child {
         background: white;

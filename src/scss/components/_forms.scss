@@ -24,7 +24,7 @@ input[type="text"],
     padding: 0 0.25rem;
     @include transition-fast-in;
     &:focus {
-        background: $gray_light;
+        //background: $gray_light;
         border-bottom-color: $gray_med;
         @include transition-fast-out; 
     }
@@ -57,13 +57,13 @@ button {
     }
 
     .vs__selected, .vs__search {
-      border-bottom: 1px solid #DBDBDB;
+      border-bottom: 1px solid $gray;
       border-radius: 0;
       margin: 0 !important;
       padding: 0 0.25rem;
     }
     .vs__search:focus {
-      background: $gray_light;
+      //background: $gray_light;
       border-bottom-color: $gray_med;
     }
 
@@ -90,8 +90,8 @@ button {
     }
 
     .vs__dropdown-option--highlight {
-      background: $blue;
-      color: white;
+      background: $yellow_accent;
+      color: $body-font-color;
     }
 
     .vs__dropdown-option--deselect {
