@@ -52,15 +52,7 @@ const position = computed(() => {
 #AbilityDetails {
     position: fixed;
 
-    @include floating-tip(32px, 300px);
+    @include floating-tip(300px);
 
-    h1 {
-        font-size: 0.875rem;
-        font-weight: 600;
-    }
-    p {
-        font-size: 0.75rem;
-    }
-    
 }
 </style>

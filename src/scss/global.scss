@@ -16,35 +16,14 @@ body {
 @import "components/typography";
 @import "components/forms";
 
-// #bgwrap {
-//     position: absolute;
-//     top: 0;
-//     left: 0;
-//     width: 100%;
-//     height: 100vh;
-//     z-index: -1;
-//     background: linear-gradient(90deg, rgba($red_light,1) 0%, rgba(white,1) 80%);
-
-//     &::before {
-//         content: '';
-//         position: absolute;
-//         top: 0;
-//         left: calc( -75% + 4rem );
-//         width: 100%;
-//         height: 100%;
-//         background: $red_med;
-//         transform: skewX(-30deg);
-//         transform-origin: 100%;
-//     }
-//     &::after {
-//         content: '';
-//         position: absolute;
-//         top: 0;
-//         left: -75%;
-//         width: 100%;
-//         height: 100%;
-//         background: $red;
-//         transform: skewX(-30deg);
-//         transform-origin: 100%;
-//     }
-// }
+.desktop-only {
+    display: none;
+}
+@media screen and (min-width: 1024px) {
+    .mobile-only {
+        display: none;
+    }
+    .desktop-only {
+        display: initial;
+    }
+}
