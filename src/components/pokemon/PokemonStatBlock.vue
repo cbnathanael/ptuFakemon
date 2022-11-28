@@ -65,13 +65,25 @@ const props = defineProps<Props>();
                     </div>
                     <hr>
                     <div class="level-gender">
-                        <span><strong>Hit Points:</strong> {{ data.pokemon?.hitPoints }}
+                        <span><strong>Hit Pts:</strong> {{ data.pokemon?.hitPoints }}
                         </span>
 
-                        <span><strong>Gender:</strong> {{ data.pokemon?.gender }}
+                        <span class="gender" :class="[data.pokemon?.gender]">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                v-if="data.pokemon?.gender == 'Male'">
+                                <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                <path
+                                    d="M289.8 46.8c3.7-9 12.5-14.8 22.2-14.8H424c13.3 0 24 10.7 24 24V168c0 9.7-5.8 18.5-14.8 22.2s-19.3 1.7-26.2-5.2l-33.4-33.4L321 204.2c19.5 28.4 31 62.7 31 99.8c0 97.2-78.8 176-176 176S0 401.2 0 304s78.8-176 176-176c37 0 71.4 11.4 99.8 31l52.6-52.6L295 73c-6.9-6.9-8.9-17.2-5.2-26.2zM400 80l0 0h0v0zM176 416c61.9 0 112-50.1 112-112s-50.1-112-112-112s-112 50.1-112 112s50.1 112 112 112z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"
+                                v-if="data.pokemon?.gender == 'Female'">
+                                <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                <path
+                                    d="M304 176c0 61.9-50.1 112-112 112s-112-50.1-112-112s50.1-112 112-112s112 50.1 112 112zM224 349.1c81.9-15 144-86.8 144-173.1C368 78.8 289.2 0 192 0S16 78.8 16 176c0 86.3 62.1 158.1 144 173.1V384H128c-17.7 0-32 14.3-32 32s14.3 32 32 32h32v32c0 17.7 14.3 32 32 32s32-14.3 32-32V448h32c17.7 0 32-14.3 32-32s-14.3-32-32-32H224V349.1z" />
+                            </svg>
                         </span>
 
-                        <span><strong>Level:</strong> {{ data.pokemon?.level }}
+                        <span><strong>Lv:</strong> {{ data.pokemon?.level }}
                         </span>
                     </div>
 
@@ -104,14 +116,17 @@ const props = defineProps<Props>();
             <hr>
             <dl class="abilities">
                 <dt>Abilities</dt>
-                <dd >
-                    <span v-for="(ability, idx) in data.pokemon?.abilities" :key="idx" @mouseover="abilityDisplay(ability, true, $event)"
+                <dd>
+                    <span v-for="(ability, idx) in data.pokemon?.abilities" :key="idx"
+                        @mouseover="abilityDisplay(ability, true, $event)"
                         @mouseleave="abilityDisplay(ability, false, $event)" class="hoverable">{{ ability }}</span>
                 </dd>
             </dl>
         </section>
         <section class="detail">
-
+            <nav>
+                
+            </nav>
         </section>
         <AbilityDetail :ability-name="hoveredAbility.name" :target="hoveredAbility.target"></AbilityDetail>
     </article>
@@ -128,10 +143,12 @@ const props = defineProps<Props>();
 
     grid-template-columns: 1fr;
     grid-row-gap: 0.5rem;
+
     @media screen and (min-width:1024px) {
         grid-template-columns: 1fr 1fr;
-    grid-column-gap: 0.5rem;
+        grid-column-gap: 0.5rem;
     }
+
     &>section {
         border-radius: 0.4rem;
 
@@ -139,7 +156,7 @@ const props = defineProps<Props>();
 
     section.core {
         background: $gray_light;
-        padding-bottom: 1rem;
+        padding-bottom: 0.5rem;
 
         header {
             background: $gray;
@@ -150,7 +167,7 @@ const props = defineProps<Props>();
             grid-column-gap: 0.5rem;
 
             &>div {
-                display: grid;
+                //display: grid;
                 grid-template-columns: 1fr 1fr;
                 grid-column-gap: 0.5rem;
                 grid-auto-rows: min-content;
@@ -171,16 +188,34 @@ const props = defineProps<Props>();
                 }
 
                 .level-gender {
-
                     grid-column: 1 / span 2;
                     display: grid;
-                    grid-template-columns: 1fr 1fr 1fr;
+                    grid-template-columns: 1fr 2rem 1fr;
                     grid-column-gap: 0.5rem;
+
+                    .gender {
+                        border-radius: 1000px;
+                        width: 1.5rem;
+                        display: flex;
+                        align-content: center;
+                        justify-content: center;
+
+                        svg {
+                            width: 12px;
+                            fill: $off-white;
+                        }
+                        &.Male {
+                            background: $red;
+                        }
+                        &.Female {
+                            background: $blue;
+                        }
+                    }
                 }
 
                 hr {
                     grid-column: 1 / span 2;
-                    margin: 0;
+                    margin: 0.5rem 0;
                     border-top: 1px solid $gray_med;
                 }
             }
@@ -188,29 +223,32 @@ const props = defineProps<Props>();
         }
 
         dl.stat-group {
-            padding: 1rem;
+            padding: 0.5rem;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
+
             dt {
                 font-weight: 600;
             }
-            & + dl.stat-group {
+
+            &+dl.stat-group {
                 padding-top: 0;
             }
         }
 
         dl.abilities {
-            padding: 1rem;
+            padding: 0.5rem;
             display: grid;
             grid-template-columns: 1fr 2fr;
+
             dt {
                 font-weight: 600;
             }
-            
+
         }
 
         hr {
-            margin: 0 1rem;
+            margin: 0 0.5rem;
             border-top: 1px solid $gray;
         }
     }
