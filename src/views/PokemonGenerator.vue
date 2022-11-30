@@ -30,6 +30,7 @@ onBeforeMount(() => {
     }
 });
 async function choosePokemon() {
+    selectedPokemon.show = false;
     let collection = mongo?.db("fakemon").collection("pokemon");
     const species = await collection?.findOne({ name: selectedPokemon.name });
     const pokemon: PokemonCharacter = {
@@ -63,7 +64,14 @@ async function choosePokemon() {
         hitPoints: 0,
         nature: undefined,
         size: species.size,
-        skills: species.skills
+        skills: species.skills,
+        contestStats: {
+            beauty: 0,
+            cool: 0,
+            cute: 0,
+            smart: 0,
+            tough: 0
+        }
     };
     const abilityPick = rng.getD6roll(1);
     pokemon.abilities.push(species.abilities.basic[abilityPick[0] % 2 ? 0 : 1]);
@@ -71,7 +79,7 @@ async function choosePokemon() {
     pokemon.gender = genderPick <= species.breeding.ratio.male ? 'Male' : 'Female';
 
     const naturePick = rng.getNumberBetween(1, 36);
-    
+
     const nature = await store.dispatch("pokemon/lookupNaturebyId", naturePick);
     pokemon.nature = nature;
     pokemon.stats.hp.base += nature.hp;
@@ -121,7 +129,7 @@ async function choosePokemon() {
         }
     })
 
-    const sizeMod = rng.getNumberBetween(-5,5) / 100;
+    const sizeMod = rng.getNumberBetween(-5, 5) / 100;
     const inch = Math.round((species.size.height.inches * sizeMod) + species.size.height.inches);
     const meter = (inch * 0.0254).toFixed(2);
 
@@ -134,13 +142,31 @@ async function choosePokemon() {
     pokemon.size.weight.kilograms = parseFloat(kilograms);
 
     pokemon.contestStats = {
-        beauty: Math.floor((pokemon.stats.specialAttack.base+pokemon.stats.specialAttack.mod)/10),
-        cool: Math.floor((pokemon.stats.attack.base+pokemon.stats.attack.mod)/10),
-        cute: Math.floor((pokemon.stats.speed.base+pokemon.stats.speed.mod)/10),
-        smart: Math.floor((pokemon.stats.specialDefense.base+pokemon.stats.specialDefense.mod)/10),
-        tough: Math.floor((pokemon.stats.defense.base+pokemon.stats.defense.mod)/10),
+        beauty: Math.floor((pokemon.stats.specialAttack.base + pokemon.stats.specialAttack.mod) / 10),
+        cool: Math.floor((pokemon.stats.attack.base + pokemon.stats.attack.mod) / 10),
+        cute: Math.floor((pokemon.stats.speed.base + pokemon.stats.speed.mod) / 10),
+        smart: Math.floor((pokemon.stats.specialDefense.base + pokemon.stats.specialDefense.mod) / 10),
+        tough: Math.floor((pokemon.stats.defense.base + pokemon.stats.defense.mod) / 10),
     }
     pokemon.hitPoints = pokemon.level + ((pokemon.stats.hp.base + pokemon.stats.hp.mod) * 3) + 10;
+
+    const possibleMoves = species.moves.filter((m: any) => {
+        return m.level <= pokemon.level;
+    });
+
+    if (possibleMoves.length <= 6) {
+        pokemon.moves = possibleMoves;
+    } else {
+        for (let i = 0; i < 6; i++) {
+            let size = possibleMoves.length;
+            const moveId = rng.getNumberBetween(0, size);
+            pokemon.moves.push(possibleMoves[moveId])
+            possibleMoves.splice(moveId, 1);
+        }
+    }
+
+
+
     thisMon.value = pokemon;
     selectedPokemon.show = true;
 }
@@ -237,7 +263,7 @@ form.generator-select {
             @include transition-fast-out;
 
             &::before {
-            
+
                 @include transition-fast-out;
             }
         }

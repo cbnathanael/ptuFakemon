@@ -10,6 +10,7 @@ import MoveDisplay from "./MoveDisplay.vue";
 import VueSelect from 'vue-select';
 import PokemonNature from '@/interfaces/pokemon/PokemonNature';
 import MoveDetailSheet from './MoveDetailSheet.vue';
+import StatRaiseLower from './StatRaiseLower.vue';
 const store = useStore();
 interface Props {
     pokemon: PokemonCharacter;
@@ -48,6 +49,18 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
     }
 
 }
+function getNatureType(stat: string) {
+    if (data.pokemon?.nature?.raise == stat && data.pokemon?.nature?.lower == stat) {
+        return null;
+    }
+    if (data.pokemon?.nature?.raise == stat) {
+        return 'raise'
+    }
+    if (data.pokemon?.nature?.lower == stat) {
+        return 'lower'
+    }
+    return null;
+}
 // eslint-disable-next-line no-undef, @typescript-eslint/no-unused-vars
 const props = defineProps<Props>();
 </script>
@@ -83,24 +96,41 @@ const props = defineProps<Props>();
                             </svg>
                         </span>
 
-                        <span><strong>Lv:</strong> {{ data.pokemon?.level }}
+                        <span class="level"><strong>Lv:</strong> {{ data.pokemon?.level }}
                         </span>
                     </div>
 
                 </div>
             </header>
             <dl class="stat-group">
-                <dt>HP</dt>
+                <dt>
+                    <StatRaiseLower :type="getNatureType('hp')"></StatRaiseLower>HP
+                </dt>
                 <dd>{{ data.pokemon?.stats.hp.base + data.pokemon?.stats.hp.mod }}</dd>
-                <dt>Sp. Attack</dt>
+                <dt>
+                    <StatRaiseLower :type="getNatureType('satk')"></StatRaiseLower>
+                    <span class="desktop-only">Sp. Attack</span><span class="mobile-only">SpAtk</span>
+                </dt>
                 <dd>{{ data.pokemon?.stats.specialAttack.base + data.pokemon?.stats.specialAttack.mod }}</dd>
-                <dt>Attack</dt>
+                <dt>
+                    <StatRaiseLower :type="getNatureType('atk')"></StatRaiseLower>
+                    <span class="desktop-only">Attack</span><span class="mobile-only">Atk</span>
+                </dt>
                 <dd>{{ data.pokemon?.stats.attack.base + data.pokemon?.stats.attack.mod }}</dd>
-                <dt>Sp. Defense</dt>
+                <dt>
+                    <StatRaiseLower :type="getNatureType('sdef')"></StatRaiseLower>
+                    <span class="desktop-only">Sp. Defense</span><span class="mobile-only">SpDef</span>
+                </dt>
                 <dd>{{ data.pokemon?.stats.specialDefense.base + data.pokemon?.stats.specialDefense.mod }}</dd>
-                <dt>Defense</dt>
+                <dt>
+                    <StatRaiseLower :type="getNatureType('def')"></StatRaiseLower>
+                    <span class="desktop-only">Defense</span><span class="mobile-only">Def</span>
+                </dt>
                 <dd>{{ data.pokemon?.stats.defense.base + data.pokemon?.stats.defense.mod }}</dd>
-                <dt>Speed</dt>
+                <dt>
+                    <StatRaiseLower :type="getNatureType('spd')"></StatRaiseLower>
+                    <span class="desktop-only">Speed</span><span class="mobile-only">Spd</span>
+                </dt>
                 <dd>{{ data.pokemon?.stats.speed.base + data.pokemon?.stats.speed.mod }}</dd>
             </dl>
             <dl class="stat-group">
@@ -125,8 +155,16 @@ const props = defineProps<Props>();
         </section>
         <section class="detail">
             <nav>
-                
+
             </nav>
+            <section class="moves">
+                <ul>
+                    <li v-for="(move, idx) in data.pokemon?.moves" :key="idx">
+                        <MoveDisplay :moveName="move.name" :displayType="'block'"></MoveDisplay>
+                        <!-- &ndash; {{move.type}} -->
+                    </li>
+                </ul>
+            </section>
         </section>
         <AbilityDetail :ability-name="hoveredAbility.name" :target="hoveredAbility.target"></AbilityDetail>
     </article>
@@ -190,7 +228,7 @@ const props = defineProps<Props>();
                 .level-gender {
                     grid-column: 1 / span 2;
                     display: grid;
-                    grid-template-columns: 1fr 2rem 1fr;
+                    grid-template-columns: 2fr 2rem 1fr;
                     grid-column-gap: 0.5rem;
 
                     .gender {
@@ -204,12 +242,18 @@ const props = defineProps<Props>();
                             width: 12px;
                             fill: $off-white;
                         }
+
                         &.Male {
                             background: $red;
                         }
+
                         &.Female {
                             background: $blue;
                         }
+                    }
+
+                    .level {
+                        text-align: right;
                     }
                 }
 
@@ -229,11 +273,22 @@ const props = defineProps<Props>();
 
             dt {
                 font-weight: 600;
+                display: flex;
+                align-items: center;
+
+                .stat-raise-lower {
+                    margin-right: 0.5rem;
+                }
             }
 
             &+dl.stat-group {
                 padding-top: 0;
             }
+        }
+
+        .stat-nature {
+            display: inline-block;
+
         }
 
         dl.abilities {
@@ -256,6 +311,14 @@ const props = defineProps<Props>();
     section.detail {
         background: $body-font-color;
         color: $off_white;
+        padding: 0.5rem;
+
+
+        .moves {
+            li + li {
+                margin-top: 0.5rem;
+            }
+        }
     }
 }
 </style>
