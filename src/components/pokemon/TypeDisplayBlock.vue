@@ -11,7 +11,7 @@ const props = defineProps<Props>();
 </script>
 
 <template>
-    <div class="type-display-block" :class="[typeName]">
+    <div class="type-display-block" :class="[typeName]" v-if="typeName != 'none'">
         <div class="svg-wrap">
             <svg v-if="typeName == 'bug'" fill="none" height="512" viewBox="0 0 512 512" width="512"
                 xmlns="http://www.w3.org/2000/svg">

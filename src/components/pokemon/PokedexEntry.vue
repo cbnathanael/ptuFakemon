@@ -14,6 +14,12 @@ const hoveredAbility = reactive({
   name: '',
   target: null
 });
+const cssVars = computed(() => {
+  return {
+    '--pokemon-image': `url(http://img.pokemondb.net/artwork/${props.pokemon.name.toLowerCase()}.jpg)`,
+  }
+})
+
 function abilityDisplay(abilityName: string, show: boolean, event: any) {
   if (show) {
     hoveredAbility.name = abilityName;
@@ -27,267 +33,138 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
 </script>
 
 <template>
-  <article id="PokemonStats">
-    <!-- <header>
-      <h1>{{ pokemon.name }}</h1>
-    </header> -->
-    <div class="column column-left">
-      <section id="PokemonBaseStats">
-        <img :src="`http://img.pokemondb.net/artwork/${pokemon.name.toLowerCase()}.jpg`" alt="">
-        <h2>Base Stats</h2>
-        <dl class="data">
-          <dt>HP</dt>
-          <dd>{{ pokemon.stats.hp }}</dd>
-          <dt>Attack</dt>
-          <dd>{{ pokemon.stats.attack }}</dd>
-          <dt>Defense</dt>
-          <dd>{{ pokemon.stats.defense }}</dd>
-          <dt>Special Attack</dt>
-          <dd>{{ pokemon.stats.specialAttack }}</dd>
-          <dt>Special Defense</dt>
-          <dd>{{ pokemon.stats.specialDefense }}</dd>
-          <dt>Speed</dt>
-          <dd>{{ pokemon.stats.speed }}</dd>
-        </dl>
-      </section>
-      <section id="PokemonBasicInformation">
-        <h2>Basic Information</h2>
-        <dl class="data">
-          <dt>Type</dt>
-          <dd><span v-for="(type, idx) in pokemon.types" :key="idx" ><TypeDisplay :type-name="type.toLowerCase()" v-if="type.toLowerCase() != 'none'"></TypeDisplay></span></dd>
-          <template v-for="(ability, idx) in pokemon.abilities.basic" :key="idx">
-            <dt>Basic Ability {{ idx + 1 }}</dt>
-            <dd><span @mouseover="abilityDisplay(ability, true, $event)"
-                @mouseleave="abilityDisplay(ability, false, $event)" class="hoverable">{{ ability }}</span></dd>
-          </template>
-          <template v-for="(ability, idx) in pokemon.abilities.advanced" :key="idx">
-            <dt>Advanced Ability {{ idx + 1 }}</dt>
-            <dd><span @mouseover="abilityDisplay(ability, true, $event)"
-              @mouseleave="abilityDisplay(ability, false, $event)" class="hoverable">{{ ability }}</span></dd>
-          </template>
-          <dt>High Ability</dt>
-          <dd><span @mouseover="abilityDisplay(pokemon.abilities.high[0], true, $event)"
-              @mouseleave="abilityDisplay(pokemon.abilities.high[0], false, $event)"
-              class="hoverable">{{ pokemon.abilities.high[0] }}</span></dd>
-        </dl>
-      </section>
-      <section id="PokemonEvolution">
-        <h2>Evolution</h2>
-        <ol class="evolutions data">
-          <li v-for="(evo, idx) in pokemon.evolutions" :key="idx">
-            <span>{{ evo.level }}</span><span>{{ evo.name }} <small v-if="evo.minimum">Minimum {{ evo.minimum }}</small></span>
-          </li>
-        </ol>
-      </section>
-      <section id="PokemonSize">
-        <h2>Size</h2>
-        <dl class="data">
-          <dt>Height</dt>
-          <dd>{{ pokemon.size.height.inches }}&rdquo; / {{ pokemon.size.height.metric }}m ({{ pokemon.size.height.scale }})
-          </dd>
-          <dt>Weight</dt>
-          <dd>{{ pokemon.size.weight.pounds }}lbs. / {{ pokemon.size.weight.kilograms }}kg ({{ pokemon.size.weight.scale }})
-          </dd>
+  <article id="PokedexEntry" :style="cssVars">
+    <section class="core-data">
+      <div class="title">
+        <h1>{{ pokemon.name }}</h1>
+        <h2>The name pokemon</h2>
+      </div>
+      <div class="types">
+        <TypeDisplay v-for="(type, idx) in pokemon.types" :key="idx" :type-name="type.toLowerCase()"></TypeDisplay>
+      </div>
+      <img :src="`http://img.pokemondb.net/artwork/${pokemon.name.toLowerCase()}.jpg`" alt="" />
+      <div class="physical">
+        <div>
+          <strong>Height</strong>&nbsp;
+          <span>{{ pokemon.size.height.inches }}&rdquo; / {{ pokemon.size.height.metric }}m ({{
+              pokemon.size.height.scale
+          }})
+          </span>
+        </div>
+        <div>
+          <strong>Weight</strong>&nbsp;
+          <span>{{ pokemon.size.weight.pounds }}lbs. / {{ pokemon.size.weight.kilograms }}kg ({{
+              pokemon.size.weight.scale
+          }})</span>
+        </div>
+      </div>
+      <div class="stats">
+        <div><strong>HP</strong> <span>{{ pokemon.stats.hp }}</span></div>
+        <div><strong>ATK</strong> <span>{{ pokemon.stats.attack }}</span></div>
+        <div><strong>DEF</strong> <span>{{ pokemon.stats.defense }}</span></div>
+        <div><strong>SATK</strong> <span>{{ pokemon.stats.specialAttack }}</span></div>
+        <div><strong>SDEF</strong> <span>{{ pokemon.stats.specialDefense }}</span></div>
+        <div><strong>SPD</strong> <span>{{ pokemon.stats.speed }}</span></div>
+      </div>
+    </section>
 
-        </dl>
-      </section>
-      <section>
-        <h2>Breeding</h2>
-        <dl class="data">
-          <dt>Gender Ratio</dt>
-          <dd>{{ pokemon.breeding.ratio.male }}% M / {{ pokemon.breeding.ratio.female }}% F</dd>
-          <dt>Egg Group</dt>
-          <dd><span v-for="(group, idx) in pokemon.breeding.eggGroups" :key="idx">{{ group }}</span></dd>
-          <dt>Average Hatch Rat</dt>
-          <dd>{{ pokemon.breeding.hatchRate }} Days</dd>
-          <dt>Diet</dt>
-          <dd><span v-for="(diet, idx) in pokemon.diet" :key="idx" class="comma-list-item">{{ diet }}</span></dd>
-          <dt>Habitat</dt>
-          <dd><span v-for="(habitat, idx) in pokemon.habitat" :key="idx" class="comma-list-item">{{ habitat }}</span></dd>
-        </dl>
-      </section>
-    </div>
-    <div class="column column-right">
-      <section>
-        <h2>Capabilities</h2>
-        <ul class="data-list">
-          <li v-if="pokemon.movement.overland > 0">Overland {{ pokemon.movement.overland }}</li>
-          <li v-if="pokemon.movement.sky > 0">Sky {{ pokemon.movement.sky }}</li>
-          <li v-if="pokemon.movement.swim > 0">Swim {{ pokemon.movement.swim }}</li>
-          <li v-if="pokemon.movement.levitate > 0">Levitate {{ pokemon.movement.levitate }}</li>
-          <li v-if="pokemon.movement.burrow > 0">Burrow {{ pokemon.movement.burrow }}</li>
-          <li v-if="pokemon.movement.hJump > 0">Jump {{ pokemon.movement.hJump }}/{{ pokemon.movement.lJump }}</li>
-          <li v-for="(cap, idx) in pokemon.capabilities" :key="idx">
-            {{ cap }}
-            <!-- <span v-if="cap.value">{{cap.value}}</span> -->
-          </li>
-          <li>Naturewalk (<span v-for="(nw, idx) in pokemon.naturewalk" :key="idx"
-              class="comma-list-item">{{ nw }}</span>)</li>
-        </ul>
-      </section>
-      <section>
-        <h2>Skills</h2>
-        <ul class="data-list">
-          <li v-if="!(pokemon.skills.acrobatics.dice == 2 && pokemon.skills.acrobatics.modifier == 0)">Acrobatics
-            {{ formatting.diceFormat(pokemon.skills.acrobatics) }} </li>
-          <li v-if="!(pokemon.skills.athletics.dice == 2 && pokemon.skills.athletics.modifier == 0)">Athletics
-            {{ formatting.diceFormat(pokemon.skills.athletics) }} </li>
-          <li v-if="!(pokemon.skills.charm.dice == 2 && pokemon.skills.charm.modifier == 0)">Charm
-            {{ formatting.diceFormat(pokemon.skills.charm) }} </li>
-          <li v-if="!(pokemon.skills.combat.dice == 2 && pokemon.skills.combat.modifier == 0)">Combat
-            {{ formatting.diceFormat(pokemon.skills.combat) }} </li>
-          <li v-if="!(pokemon.skills.command.dice == 2 && pokemon.skills.command.modifier == 0)">Command
-            {{ formatting.diceFormat(pokemon.skills.command) }} </li>
-          <li v-if="!(pokemon.skills.focus.dice == 2 && pokemon.skills.focus.modifier == 0)">Focus
-            {{ formatting.diceFormat(pokemon.skills.focus) }} </li>
-          <li v-if="!(pokemon.skills.guile.dice == 2 && pokemon.skills.guile.modifier == 0)">Guile
-            {{ formatting.diceFormat(pokemon.skills.guile) }} </li>
-          <li v-if="!(pokemon.skills.intimidate.dice == 2 && pokemon.skills.intimidate.modifier == 0)">Intimidate
-            {{ formatting.diceFormat(pokemon.skills.intimidate) }} </li>
-          <li v-if="!(pokemon.skills.intuition.dice == 2 && pokemon.skills.intuition.modifier == 0)">Intuition
-            {{ formatting.diceFormat(pokemon.skills.intuition) }} </li>
-          <li v-if="!(pokemon.skills.perception.dice == 2 && pokemon.skills.perception.modifier == 0)">Perception
-            {{ formatting.diceFormat(pokemon.skills.perception) }} </li>
-          <li v-if="!(pokemon.skills.stealth.dice == 2 && pokemon.skills.stealth.modifier == 0)">Stealth
-            {{ formatting.diceFormat(pokemon.skills.stealth) }} </li>
-          <li v-if="!(pokemon.skills.survival.dice == 2 && pokemon.skills.survival.modifier == 0)">Survival
-            {{ formatting.diceFormat(pokemon.skills.survival) }} </li>
-        </ul>
-      </section>
-      <section>
-        <h2>Moves</h2>
-        <ol class="moves-list data">
-          <li>
-          <span>Level</span><span>Move</span>
-          </li>
-          <li v-for="(move, idx) in pokemon.moves" :key="idx">
-            <span>{{ move.level }}</span><MoveDisplay :moveName="move.name" :displayType="'block'"></MoveDisplay>
-            <!-- &ndash; {{move.type}} -->
-          </li>
-        </ol>
-      </section>
-      <section>
-        <h2>TM/HM Moves</h2>
-        <p class="move-text">
-          <span v-for="(move, idx) in pokemon.tmHmMoves" :key="idx">{{ move.id }} {{ move.name }}</span>
-        </p>
-      </section>
-      <!-- <section>
-        <h2>Egg Moves</h2>
-        <p class="move-text">
-          <span v-for="(move, idx) in pokemon.eggMoves" :key="idx">{{move}}</span>
-        </p>
-      </section> -->
-      <section>
-        <h2>Tutor Moves</h2>
-        <p class="move-text">
-          <span v-for="(move, idx) in pokemon.tutorMoves" :key="idx">{{ move }}</span>
-        </p>
-      </section>
-    </div>
-    <AbilityDetail :ability-name="hoveredAbility.name" :target="hoveredAbility.target"></AbilityDetail>
+    <!-- <AbilityDetail :ability-name="hoveredAbility.name" :target="hoveredAbility.target"></AbilityDetail> -->
   </article>
 </template>
 
-<style lang="scss">
-#PokemonStats {
-  margin: 1rem auto;
-  max-width: 60rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-column-gap: 2rem;
-  position: relative;
-
-  header {
-    grid-column: 1 / span 2;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-    padding: 0.25rem 0.5rem;
+<style scoped lang="scss">
+#PokedexEntry {
+  .core-data {
+    width: calc(100vw - 2rem);
+    border: 2px solid $type_grass;
+    margin: 0 auto;
+    background-color: white;
+    // background-image: var(--pokemon-image);
+    // background-position: center;
+    // background-repeat: no-repeat;
     position: relative;
-    border-bottom: 0.25rem solid $red;
-    //clip-path: polygon(0px 100%, 0px 0%, 100% 0, 80% 100%);
 
-  }
-  dl.data {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-row-gap: 0.125rem;
-    background-color: $gray;
-    
-    dt, dd {
+    .title {
+      background: $type_grass;
+      color: $off_white;
+      width: 100%;
       padding: 0.25rem 0.5rem;
+
+      h1 {
+        font-size: 1.25rem;
+      }
+
+      h2 {
+        font-size: 1rem;
+        text-align: right;
+      }
+
     }
-    dt {
-      font-weight: 600;
-      background: $gray_light;
-    }
-    dd {
-      background: white;
-    }
-  }
-  ol.data {
-    background: $gray;
-    li {
+
+    .types {
+      padding: 0.25rem 0.5rem;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      & > span {
+      justify-items: center;
+    }
+
+    img {
+      display: block;
+      margin: 0 auto;
+    }
+    .physical, .stats {
+      display: grid;
+      div {
+        border: 1px solid $type_grass;
+        border-width: 1px 1px 0 1px;
         padding: 0.25rem 0.5rem;
-      &:first-child {
-        background: $gray_light;
-        font-weight: 600;
-      }
-      &:last-child {
-        background: white;
-      }
-    }
-      &+ li {
-        margin-top: 0.125rem;
-      }
-    }
-    &.moves-list {
-      li {
-        grid-template-columns: 4rem 1fr;
-        
-      }
-    }
-  }
-  ul.data-list {
-    background: white;
-    padding: 0.25rem 0.5rem;
-    li {
-      display: inline;
-      &::after {
-        content: ', ';
-      }
-      &:last-child::after {
-        content: '';
-      }
-    }
-  }
-  ol.evolutions,
-  ol.move-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
+        text-align: center;
 
-  p.move-text {
-    span+span {
-      &::before {
-        content: ', ';
+        &:first-child {
+          border-left: none;
+        }
+
+        &:last-child {
+          border-right: none;
+        }
+
+        span {
+          display: block;
+        }
       }
     }
-  }
-
-  .comma-list-item+.comma-list-item::before {
-    content: ", ";
-  }
-
-  .hoverable {
-    cursor: help;
-    text-decoration: underline dotted #bbb;
+    .physical {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .stats {
+      grid-template-columns: repeat(6, 1fr);
+    }
+    @media screen and (min-width:1024px) {
+      width: 512px;
+      min-width: 512px;
+      min-height: 512px;
+      background-image: var(--pokemon-image);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: auto 360px;
+      display: flex;
+      flex-direction: column;
+      img {
+        display: none;
+      }
+      .title, .types {
+        width: 50%;
+      }
+      .physical {
+        margin-top: auto;
+      }
+      .physical, .stats {
+        text-align: left;
+        div span {
+          display: inline-block;
+        }
+      }
+    }
   }
 }
 </style>
