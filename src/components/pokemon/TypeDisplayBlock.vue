@@ -142,6 +142,7 @@ div.type-display-block {
     display: inline-block;
     position: relative;
     border-radius: 1000px;
+    font-family: 'Encode Sans';
     .svg-wrap {
         display: flex;
         justify-content: center;

@@ -29,7 +29,7 @@ function choosePokemon(value?: string) {
 </script>
 
 <template>
-  <section id="PokedexEntry">
+  <section>
     <vueSelect class="pokemon-select" :options="pokemonNames" v-model="selectedPokemon.name"
       @option:selected="choosePokemon"></vueSelect>
     <PokedexEntry :pokemon="selectedPokemon.stats" v-if="selectedPokemon.stats"></PokedexEntry>
@@ -38,11 +38,5 @@ function choosePokemon(value?: string) {
 
 
 <style lang="scss">
-#PokedexEntry {
-  max-width: 60rem;
-  margin: 0 auto;
 
-
- 
-}
 </style>

@@ -369,7 +369,8 @@ onBeforeMount(() => {
 
 .move-detail {
     @include floating-tip(600px);
-
+    position: absolute;
+    z-index: 199;
     dl {
         display: grid;
         grid-template-columns: 1fr 2fr;

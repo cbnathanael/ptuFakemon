@@ -232,6 +232,7 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
     li {
       display: grid;
       grid-template-columns: 1fr 1fr;
+      grid-column-gap: 0.5rem;
       & > span {
         padding: 0.25rem 0.5rem;
       &:first-child {
@@ -249,7 +250,6 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
     &.moves-list {
       li {
         grid-template-columns: 4rem 1fr;
-        
       }
     }
   }

@@ -68,7 +68,7 @@ const props = defineProps<Props>();
     <article id="PokemonStatBlock">
         <section class="core">
             <header>
-                <img :src="`http://img.pokemondb.net/artwork/${data.pokemon?.speciesData.name.toLowerCase()}.jpg`"
+                    <img :src="`https://img.pokemondb.net/artwork/vector/large/${data.pokemon?.speciesData.name.toLowerCase()}.avif`"
                     alt="">
                 <div>
                     <h1>{{ pokemon.speciesData.name }}</h1>
