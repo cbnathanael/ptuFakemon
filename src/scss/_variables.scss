@@ -40,54 +40,72 @@ $green_light: color.adjust($green, $saturation: 20, $lightness: 35);
 
 $type_normal: #A6A8A7;
 $type_normal_dark: color.adjust($type_normal, $saturation: -40, $lightness: -10);// #4D5052;
+$type_normal_light: color.adjust($type_normal, $lightness: 20);
 
 $type_bug: #979F16;
 $type_bug_dark: color.adjust($type_bug, $saturation: -40, $lightness: -10);// #4D553F;
+$type_bug_light: color.adjust($type_bug, $lightness: 20);// #4D553F;
 
 $type_electric: #FFC500;
 $type_electric_dark: color.adjust($type_electric, $saturation: -40, $lightness: -10);// #5D5942;
+$type_electric_light: color.adjust($type_electric, $lightness: 20);// #5D5942;
 
 $type_fighting: #FF7F00;
 $type_fighting_dark: color.adjust($type_fighting, $saturation: -40, $lightness: -10);// #58414A;
+$type_fighting_light: color.adjust($type_fighting, $lightness: 20);// #58414A;
 
 $type_ghost: #6D3F6D;
-$type_ghost_dark: color.adjust($type_ghost, $saturation: -40, $lightness: -10);// #424952;
+$type_ghost_dark: color.adjust($type_ghost, $saturation: -5, $lightness: -10);// #424952;
+$type_ghost_light: color.adjust($type_ghost, $lightness: 20);// #424952;
 
 $type_psychic: #ED4276;
 $type_psychic_dark: color.adjust($type_psychic, $saturation: -40, $lightness: -10);// #5D494A;
+$type_psychic_light: color.adjust($type_psychic, $lightness: 20);// #5D494A;
 
 $type_flying: #81B8F0;
 $type_flying_dark: color.adjust($type_flying, $saturation: -40, $lightness: -10);// #4D525A;
+$type_flying_light: color.adjust($type_flying, $lightness: 20);// #4D525A;
 
 $type_steel: #63A3BE;
-$type_steel_dark: color.adjust($type_steel, $saturation: -40, $lightness: -10);// #454D52;
+$type_steel_dark: color.adjust($type_steel, $saturation: -25, $lightness: -10);// #454D52;
+$type_steel_light: color.adjust($type_steel, $lightness: 20);// #454D52;
 
 $type_ice: #49D7FD;
 $type_ice_dark: color.adjust($type_ice, $saturation: -40, $lightness: -10);// #475858;
+$type_ice_light: color.adjust($type_ice, $lightness: 20);// #475858;
 
 $type_poison: #9340D0;
 $type_poison_dark: color.adjust($type_poison, $saturation: -40, $lightness: -10);// #524958;
+$type_poison_light: color.adjust($type_poison, $lightness: 20);// #524958;
 
 $type_fire: #E32A27;
 $type_fire_dark: color.adjust($type_fire, $saturation: -40, $lightness: -10);// #605045;
+$type_fire_light: color.adjust($type_fire, $lightness: 20);// #605045;
 
 $type_dragon: #4C64EC;
-$type_dragon_dark: color.adjust($type_dragon, $saturation: -40, $lightness: -10);// #374958;
+$type_dragon_dark: color.adjust($type_dragon, $saturation: -45, $lightness: -15);// #374958;
+$type_dragon_light: color.adjust($type_dragon, $lightness: 20);// #374958;
 
 $type_ground: #935218;
 $type_ground_dark: color.adjust($type_ground, $saturation: -40, $lightness: -10);// #5A4A42;
+$type_ground_light: color.adjust($type_ground, $lightness: 20);// #5A4A42;
 
 $type_water: #2F7FF0;
 $type_water_dark: color.adjust($type_water, $saturation: -40, $lightness: -10);// #424E5A;
+$type_water_light: color.adjust($type_water, $lightness: 20);// #424E5A;
 
 $type_dark: #4D4038;
-$type_dark_dark:color.adjust($type_dark, $saturation: -40, $lightness: -10);// #45454A;
+$type_dark_dark: color.adjust($type_dark, $saturation: -40, $lightness: -10);// #45454A;
+$type_dark_light: color.adjust($type_dark, $lightness: 20);// #45454A;
 
 $type_rock: #B3AB84;
 $type_rock_dark: color.adjust($type_rock, $saturation: -40, $lightness: -10);// #585550;
+$type_rock_light: color.adjust($type_rock, $lightness: 20);// #585550;
 
 $type_grass: #3DA222;
 $type_grass_dark: color.adjust($type_grass, $saturation: -40, $lightness: -10);// #455647;
+$type_grass_light: color.adjust($type_grass, $lightness: 20);// #455647;
 
 $type_fairy: #F46CF0;
 $type_fairy_dark:color.adjust($type_fairy, $saturation: -40, $lightness: -10);// #5D4E5D;
+$type_fairy_light:color.adjust($type_fairy, $saturation: -40, $lightness: -10);// #5D4E5D;

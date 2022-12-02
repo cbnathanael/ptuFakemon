@@ -18,6 +18,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/PokemonGenerator',
     name: 'pokeGen',
     component: () => import(/* webpackChunkName: "Style" */ '../views/PokemonGenerator.vue')
+  },
+  {
+    path: '/style',
+    name: 'style',
+    component: () => import(/* webpackChunkName: "Style" */ '../views/StyleView.vue')
   }
 ]
 

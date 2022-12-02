@@ -15,8 +15,12 @@ const hoveredAbility = reactive({
   target: null
 });
 const cssVars = computed(() => {
+  const color = formatting.typeColor(props.pokemon.types[0].toLocaleLowerCase());
   return {
     '--pokemon-image': `url(http://img.pokemondb.net/artwork/${props.pokemon.name.toLowerCase()}.jpg)`,
+    '--pokemon-color': color?.std,
+    '--pokemon-color-dark': color?.dark,
+    '--pokemon-color-light': color?.light,
   }
 })
 
@@ -211,7 +215,7 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
 
   .core-data {
     width: calc(100vw - 2rem);
-    border: 2px solid $type_grass;
+    border: 2px solid var(--pokemon-color);
     margin: 0 auto;
     background-color: white;
     position: relative;
@@ -221,7 +225,7 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
     }
 
     .title {
-      background: $type_grass;
+      background: var(--pokemon-color);
       color: $off_white;
       width: 100%;
       padding: 0.25rem 0.5rem;
@@ -250,7 +254,7 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
     }
 
     .gender div {
-      border: 1px solid $type_grass;
+      border: 1px solid var(--pokemon-color);
       border-width: 2px 0 0 0;
       padding: 0.25rem 0.5rem;
       text-align: center;
@@ -261,7 +265,7 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
       display: grid;
 
       div {
-        border: 1px solid $type_grass;
+        border: 1px solid var(--pokemon-color);
         border-width: 2px 1px 0 1px;
         padding: 0.25rem 0.5rem;
         text-align: center;
@@ -359,13 +363,13 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
   .secondary-data {
     width: calc(100vw - 2rem);
     margin: 0 auto;
-    border: 2px solid $gray_dark_accent;
+    border: 2px solid var(--pokemon-color-dark);
     border-top-width: 0;
     background: $off_white;
 
     strong {
       display: inline-block;
-      background: $gray_dark;
+      background: var(--pokemon-color-light);
       padding: 0.5rem;
       align-self: stretch;
       line-height: 1.5;
@@ -380,7 +384,7 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
       grid-template-columns: 6.5rem 1fr;
       grid-column-gap: 0.5rem;
       align-items: center;
-      border-bottom: 2px solid $gray_dark_accent;
+      border-bottom: 2px solid var(--pokemon-color-dark);
       padding-right: 0.5rem;
       div {
         padding: 0.25rem 0;
@@ -389,7 +393,7 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
 
     .abilities,
     .capabilities {
-      border-bottom: 2px solid $gray_dark_accent;
+      border-bottom: 2px solid var(--pokemon-color-dark);
     }
 
     .abilities,
@@ -429,16 +433,16 @@ function abilityDisplay(abilityName: string, show: boolean, event: any) {
     grid-column: 1 / span 2;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    border: 2px solid $gray_dark_accent;
+    border: 2px solid var(--pokemon-color-dark);
     border-top-width: 0;
     background: $off_white;
     &>section+section {
-      border-left: 2px solid $gray_dark_accent;
+      border-left: 2px solid var(--pokemon-color-dark);
     }
 
     strong {
       display: block;
-      background: $gray_dark;
+      background: var(--pokemon-color-light);
       padding: 0.5rem;
     }
 
