@@ -35,7 +35,7 @@ async function choosePokemon() {
     const species = await collection?.findOne({ name: selectedPokemon.name });
     const pokemon: PokemonCharacter = {
         speciesData: Object.assign({}, species),
-        name: "",
+        name: species.name,
         experience: 0,
         level: selectedPokemon.level,
         stats: {

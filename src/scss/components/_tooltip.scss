@@ -1,0 +1,125 @@
+
+// https://codepen.io/tutsplus/pen/WROvdG => tooltip source code
+[tooltip] {
+  // used for slot editing
+  & > * {
+    display: inline-block;
+  }
+  position: relative;
+  &:before,
+  &:after {
+    text-transform: none; /* opinion 2 */
+    font-size: 0.9em; /* opinion 3 */
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+    position: absolute;
+    display: none;
+    opacity: 0;
+  }
+
+  &:after {
+    content: attr(tooltip); /* magic! */
+
+    text-align: center;
+
+    /* 
+    Let the content set the size of the tooltips 
+    but this will also keep them from being obnoxious
+    */
+    min-width: 3em;
+    max-width: 21em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background: $accent_title;
+    padding: 0.5rem;
+    box-shadow: 0 0 0 4px rgba($accent_title, 0.6),0px 4px 16px rgba($gray_dark_accent, 0.2), 0px 8px 32px rgba($gray_dark_accent, 0.1);
+    border-radius: 0.5rem;
+    z-index: 1000; /* absurdity 2 */
+    color: $off_white;
+  }
+  &:hover:before,
+  &:hover:after {
+    display: block;
+  }
+  /* position: TOP */
+  
+  &:not([position]):after,
+  &[position^="top"]::after {
+    bottom: calc(100% + 5px);
+  }
+
+  &:not([position])::after,
+  &[position^="top"]::after {
+    left: 50%;
+    transform: translate(-50%, -0.5em);
+  }
+
+  /* position: BOTTOM */
+  
+  &[position^="bottom"]::after {
+    top: calc(105% + 5px);
+  }
+  
+  &[position^="bottom"]::after {
+    left: 50%;
+    transform: translate(-50%, 0.5em);
+  }
+
+  /* position: LEFT */
+  
+  &[position^="left"]::after {
+    top: 50%;
+    right: calc(100% + 5px);
+    transform: translate(-0.5em, -50%);
+  }
+
+  /* position: RIGHT */
+  
+  &[position^="right"]::after {
+    top: 50%;
+    left: calc(100% + 5px);
+    transform: translate(0.5em, -50%);
+  }
+
+  /* FX All The Things */
+  &:not([position]):hover::before,
+  &:not([position]):hover::after,
+  &[position^="top"]:hover::before,
+  &[position^="top"]:hover::after,
+  &[position^="bottom"]:hover::before,
+  &[position^="bottom"]:hover::after {
+    opacity: 1;
+    //animation: tooltips-vert 300ms ease-out forwards;
+  }
+
+  &[position^="left"]:hover::before,
+  &[position^="left"]:hover::after,
+  &[position^="right"]:hover::before,
+  &[position^="right"]:hover::after {
+    opacity: 1;
+    //animation: tooltips-horz 300ms ease-out forwards;
+  }
+}
+
+/* don't show empty tooltips */
+[tooltip="undefined"]::before,
+[tooltip="undefined"]::after {
+  display: none !important;
+}
+
+/* KEYFRAMES */
+@keyframes tooltips-vert {
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes tooltips-horz {
+  to {
+    opacity: 1;
+    transform: translate(0, -50%);
+  }
+}

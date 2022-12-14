@@ -4,7 +4,8 @@ import { useStore } from 'vuex';
 import PokemonCharacter from '@/interfaces/pokemon/pokemonCharacter';
 
 import formatting from '@/formatting';
-import TypeDisplay from './TypeDisplayBlock.vue';
+import CoreData from "./PokemonCoreData.vue"
+
 import AbilityDetail from './AbilityDetail.vue';
 import MoveDisplay from "./MoveDisplay.vue";
 import VueSelect from 'vue-select';
@@ -53,7 +54,8 @@ const props = defineProps<Props>();
 </script>
 <template>
     <article id="PokemonCharacterSheet">
-        <section class="stats">
+        <CoreData :pokemon="pokemon"></CoreData>
+        <!-- <section class="stats">
             <div class="stat-column">
                 <dl class="stat-group">
                     <dt class="species">
@@ -278,7 +280,7 @@ const props = defineProps<Props>();
                     <span>Contest Effect</span>
                 </li> -->
             </ul>
-        </section>
+        </section> -->
         <AbilityDetail :ability-name="hoveredAbility.name" :target="hoveredAbility.target"></AbilityDetail>
     </article>
 </template>
